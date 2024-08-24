@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../Components/navbar";
+import Hero from "../Components/Hero";
 
 function Home() {
   const sitedata = {
@@ -12,7 +13,8 @@ function Home() {
   };
   return (
     <div className="">
-      <Nav navbarData={sitedata.navbarData} />
+      <Nav navbarData={sitedata.navbarData} />  
+      <Hero />
     </div>
   );
 }
