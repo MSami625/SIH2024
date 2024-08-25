@@ -41,7 +41,7 @@ function navbar({ navbarData }) {
   );
 
   return (
-    <div className="sticky">
+    <div className="sticky z-10 bg-white">
       <div className="flex items-center justify-between mt-8 mx-8 lg:mx-24 px-6 lg:px-8 py-4 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.15)] w-max lg:w-auto duration-300">
         <div className="w-max flex items-center gap-1 lg:gap-2">
           <img src={logoImage} alt="" className="w-8 lg:w-10" />
