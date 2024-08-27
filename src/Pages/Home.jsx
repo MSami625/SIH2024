@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../Components/navbar";
+import Hero from "../Components/Hero";
+import Services from "../Components/services";
 import Footer from "../Components/footer";
 
 function Home() {
@@ -10,13 +12,18 @@ function Home() {
       { text: "Demo1", link: "/demo1" },
       { text: "Demo2", link: "/demo2" },
     ],
-    footerData: [],
   };
   return (
-    <div className="">
+    <>
       <Nav navbarData={sitedata.navbarData} />
-      <Footer footerData={sitedata.footerData} />
-    </div>
+
+      <div className="ml-[8vw] mr-[8vw]">
+        <Hero />
+        <Services />
+      </div>
+
+      <Footer />
+    </>
   );
 }
 
