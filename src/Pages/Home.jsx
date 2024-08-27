@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Nav from "../Components/navbar";
 import Hero from "../Components/Hero";
 import Services from "../Components/services";
-import Footer from "../Components/Footer";
+import Footer from "../Components/footer";
 
 function Home() {
   const sitedata = {
