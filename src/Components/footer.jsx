@@ -7,7 +7,7 @@ function footer({ footerData }) {
       {/* feedback form */}
       <div className="bg-[#E1F7F5] rounded-t-[50px] h-max w-[85%] lg:grid grid-cols-[30%_50%] justify-center gap-40 p-8 lg:p-12 -translate-y-16 lg:-translate-y-24">
         <div>
-          <p className="text-[30px] md:text-[70px] font-[600] text-wrap flex lg:flex-col gap-6 lg:gap-0">
+          <p className="text-[45px] md:text-[70px] font-[600] text-wrap flex lg:flex-col gap-6 lg:gap-0">
             Get<span className="underline md:no-underline">in Touch</span>
           </p>
         </div>

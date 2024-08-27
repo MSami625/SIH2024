@@ -41,8 +41,8 @@ function navbar({ navbarData }) {
   );
 
   return (
-    <div className="top-8 z-50 flex lg:inline items-center justify-between sticky ">
-      <div className="flex items-center justify-between  mx-8 lg:mx-24 px-6 lg:px-8 py-4 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.15)] w-max lg:w-auto duration-300">
+    <div className="top-8 z-50 flex lg:block items-center justify-between sticky px-8 lg:px-24">
+      <div className="flex items-center justify-between px-6 lg:px-8 py-4 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.15)] w-max lg:w-auto duration-300 bg-[rgba(255,255,255,.9)]">
         <div className="w-max flex items-center gap-1 lg:gap-2">
           <img src={logoImage} alt="" className="w-8 lg:w-10" />
           <a href="/" className="text-xl lg:text-2xl">
@@ -57,7 +57,7 @@ function navbar({ navbarData }) {
         </div>
       </div>
       <div
-        className={`flex lg:hidden absolute shadow-[0_0_30px_rgba(0,0,0,0.15)] mr-8 right-0 top-0 p-3 rounded-lg ${
+        className={`flex lg:hidden bg-[rgba(255,255,255,.9)] absolute shadow-[0_0_30px_rgba(0,0,0,0.15)] mr-8 right-0 top-0 p-3 rounded-lg ${
           active ? "" : ""
         } `}
       >
