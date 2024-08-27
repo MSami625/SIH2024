@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../Components/navbar";
 import Hero from "../Components/Hero";
+import Services from "../Components/services";
 
 function Home() {
   const sitedata = {
@@ -12,10 +13,14 @@ function Home() {
     ],
   };
   return (
-    <div className="">
-      <Nav navbarData={sitedata.navbarData} />  
+  <>
+     <Nav navbarData={sitedata.navbarData} />
+     
+    <div className="ml-[8vw] mr-[8vw]">
       <Hero />
+      <Services />
     </div>
+    </>
   );
 }
 
