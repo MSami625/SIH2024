@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import bg_img_1 from "./Assets/bg-img_1.jpg";
+import { Canvas } from "@react-three/fiber";
+import Earth from "./3D_model";
 
 const ParticleBackground = () => {
   useEffect(() => {
@@ -140,8 +143,8 @@ const ParticleBackground = () => {
         };
 
         window.particleground(document.getElementById("particles-background"), {
-          dotColor: "rgba(0,0,0, 0.5)",
-          lineColor: "rgba(0,0,0, 0.05)",
+          dotColor: "rgba(255,255,255, 0.5)",
+          lineColor: "rgba(255,255,255, 0.05)",
           minSpeedX: 0.2,
           maxSpeedX: 0.5,
           minSpeedY: 0.2,
@@ -153,8 +156,8 @@ const ParticleBackground = () => {
         });
 
         window.particleground(document.getElementById("particles-foreground"), {
-          dotColor: "rgba(0,0,0, 1)",
-          lineColor: "rgba(0,0,0, 0.05)",
+          dotColor: "rgba(255,255,255, 1)",
+          lineColor: "rgba(255,255,255, 0.05)",
           minSpeedX: 0.6,
           maxSpeedX: 0.9,
           minSpeedY: 0.6,
@@ -176,6 +179,24 @@ const ParticleBackground = () => {
     };
   }, []);
 
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsActive(true);
+      } else if (window.scrollY == 0) {
+        setIsActive(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <div
@@ -188,6 +209,64 @@ const ParticleBackground = () => {
         className="vertical-centered-box"
         aria-hidden="true"
       ></div>
+      <div className="animated-earth">
+        <Canvas camera={{ position: [0, 0, 360], rotation: [0, 0, 0] }}>
+          {/* <ambientLight intensity={1} /> */}
+          <directionalLight position={[10, 10, 10]} intensity={10} />
+          {/* <pointLight position={[10, 10, 10]} /> */}
+          <Earth />
+        </Canvas>
+      </div>
+
+      {/* Demo Alumni */}
+      <div
+        className={`fixed top-[10%] right-[10vw] hidden lg:block animated-image-active duration-500 ${
+          isActive ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <div className="relative top-24 right-40 before:w-20 before:h-8 before:border-b-4 before:border-l-4 before:skew-x-[30deg] before:border-white before:rounded-sm before:absolute before:-rotate-[60deg] before:-bottom-6 before:right-4 before:z-[1]">
+          <img
+            src={bg_img_1}
+            alt=""
+            className="w-12 h-12 rounded-full border-4 border-white z-[2] relative"
+          />
+        </div>
+        <div className="relative top-32 right-80 before:w-20 before:h-8 before:border-t-4 before:border-l-4 before:skew-x-[-30deg] before:border-white before:rounded-sm before:absolute before:-rotate-[120deg] before:-bottom-10 before:-right-12 before:z-[1]">
+          <img
+            src={bg_img_1}
+            alt=""
+            className="w-12 h-12 rounded-full border-4 border-white z-[2] relative"
+          />
+        </div>
+        <div className="relative top-72 right-24 before:w-20 before:h-8 before:border-b-4 before:border-r-4 before:skew-x-[-30deg] before:border-white before:rounded-sm before:absolute before:-rotate-[120deg] before:-top-10 before:-left-14 before:z-[1]">
+          <img
+            src={bg_img_1}
+            alt=""
+            className="w-12 h-12 rounded-full border-4 border-white z-[2] relative"
+          />
+        </div>
+        <div className="relative top-[370px] right-72 before:w-20 before:h-8 before:border-t-4 before:border-r-4 before:skew-x-[30deg] before:border-white before:rounded-sm before:absolute before:-rotate-[60deg] before:-top-10 before:-right-14 before:z-[1]">
+          <img
+            src={bg_img_1}
+            alt=""
+            className="w-12 h-12 rounded-full border-4 border-white z-[2] relative"
+          />
+        </div>
+        <div className="relative top-40 right-60 before:w-8 before:h-1 before:bg-white before:absolute before:top-5 before:left-10 before:rounded-md">
+          <img
+            src={bg_img_1}
+            alt=""
+            className="w-12 h-12 rounded-full border-4 border-white z-[2] relative"
+          />
+        </div>
+        <div className="relative top-0 right-0 before:w-8 before:h-1 before:bg-white before:absolute before:top-[22px] before:right-10 before:rounded-md">
+          <img
+            src={bg_img_1}
+            alt=""
+            className="w-12 h-12 rounded-full border-4 border-white z-[2] relative"
+          />
+        </div>
+      </div>
     </>
   );
 };

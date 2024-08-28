@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Parallax } from "react-scroll-parallax";
 import Nav from "../Components/navbar";
 import Hero from "../Components/Home/Hero";
 import Services from "../Components/Home/services";
@@ -13,6 +14,12 @@ function Home() {
       { text: "Demo1", link: "/demo1" },
       { text: "Demo2", link: "/demo2" },
     ],
+    footerData: [
+      { text: "Home", link: "/", active: true },
+      { text: "About", link: "/about" },
+      { text: "Demo1", link: "/demo1" },
+      { text: "Demo2", link: "/demo2" },
+    ],
   };
   return (
     <>
@@ -20,11 +27,14 @@ function Home() {
 
       <div className="mx-[8vw]">
         <Particles />
-        <Hero />
+        <Parallax speed={-20}>
+          <Hero />
+        </Parallax>
         <Services />
       </div>
-
-      <Footer />
+      <Parallax speed={20} translateY={[10, -5]}>
+        <Footer footerData={sitedata.footerData} />
+      </Parallax>
     </>
   );
 }

@@ -1,15 +1,47 @@
 import React from "react";
 import logoImage from "./Assets/logo.png";
+import { FaReddit, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 function footer({ footerData }) {
+  const iconArr = [
+    {
+      icon: (
+        <FaReddit className="w-8 h-8 p-[2px] hover:-translate-y-1 duration-300" />
+      ),
+      link: "/",
+    },
+    {
+      icon: (
+        <FaLinkedin className="w-8 h-8 p-[1px] hover:-translate-y-1 duration-300" />
+      ),
+      link: "/",
+    },
+    {
+      icon: (
+        <FaSquareXTwitter className="w-8 h-8 p-[1px] hover:-translate-y-1 duration-300" />
+      ),
+      link: "/",
+    },
+    {
+      icon: (
+        <FaGithub className="w-8 h-8 p-[1px] hover:-translate-y-1 duration-300" />
+      ),
+      link: "/",
+    },
+  ];
   return (
-    <div className="mt-32 bg-[#3C3D37] flex flex-col items-center">
+    <div className="mt-32 bg-white flex flex-col items-center">
       {/* feedback form */}
-      <div className="bg-[#E1F7F5] rounded-t-[50px] h-max w-[85%] lg:grid grid-cols-[30%_50%] justify-center gap-40 p-8 lg:p-12 -translate-y-16 lg:-translate-y-24">
+      <div className="bg-[#fff] shadow-[0_20px_rgba(255,255,255,1),0_0_20px_rgba(0,0,0,0.15)] rounded-t-[50px] h-max w-[85%] lg:grid grid-cols-[40%_50%] justify-center p-8 lg:p-12 -translate-y-24">
         <div>
           <p className="text-[45px] md:text-[70px] font-[600] text-wrap flex lg:flex-col gap-6 lg:gap-0">
             Get<span className="underline md:no-underline">in Touch</span>
           </p>
+          <div className="hidden lg:flex relative">
+            <div className="rounded-full w-32 h-32 bg-cyan-200 absolute top-10"></div>
+            <div className="rounded-full w-32 h-32 bg-cyan-500 absolute top-40 left-40"></div>
+          </div>
         </div>
         <div>
           <form
@@ -74,9 +106,9 @@ function footer({ footerData }) {
       </div>
 
       {/* footer */}
-      <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-0 w-[85%] text-white border-white border-t-2 lg:border-t-0 border-b-2 py-12">
+      <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-0 w-[90%] border-black border-t-2 border-b-2 p-12 -translate-y-12">
         <div className="w-max flex md:flex-col flex-row gap-2 lg:gap-0">
-          <img src={logoImage} alt="" className="w-8 lg:w-10 invert" />
+          <img src={logoImage} alt="" className="w-8 lg:w-10" />
           <a href="/" className="text-xl lg:text-2xl">
             FusionX
           </a>
@@ -84,41 +116,57 @@ function footer({ footerData }) {
         <div className="w-max">
           <p className="font-bold mb-4 mt-4 md:mt-0">MENU</p>
           <div className="flex flex-col gap-2">
-            <a href="" className="hover:text-blue-500">
-              Demo1
-            </a>
-            <a href="" className="hover:text-blue-500">
-              Demo2
-            </a>
-            <a href="" className="hover:text-blue-500">
-              Demo3
-            </a>
+            {footerData.map((items, index) => (
+              <a
+                key={index}
+                href={items.link}
+                className={`${
+                  items.active ? "text-blue-500" : "hover:text-blue-500"
+                }`}
+              >
+                {items.text}
+              </a>
+            ))}
           </div>
         </div>
         <div className="w-max">
           <p className="font-bold mb-4 mt-4 md:mt-0">CONTACT</p>
           <div className="flex flex-col gap-2">
             <p>123-456-7890</p>
-            <p>demo@mysite.com</p>
-          </div>
-        </div>
-        <div className="w-max">
-          <p className="font-bold mb-4 mt-4 md:mt-0">SOCIALS</p>
-          <div className="flex flex-col gap-2">
-            <a href="">Demo</a>
-            <a href="">Demo</a>
+            <a
+              href="mailto:demo@mysite.com"
+              className="hover:text-blue-500 hover:underline"
+            >
+              demo@mysite.com
+            </a>
           </div>
         </div>
         <div className="w-max text-wrap">
           <p className="font-bold mb-4 mt-4 md:mt-0">ADDRESS</p>
           <div className="flex flex-col gap-2">
-            <p>Lorem molestias alias</p>
-            <p>blanditiis ad maxime</p>
+            <address>
+              Galgotias University <br /> Greater Noida, Uttar Pradesh <br />{" "}
+              203201
+            </address>
           </div>
         </div>
+        <div className="flex gap-4 md:hidden">
+          {iconArr.map((content, index) => (
+            <a key={index} href={content.link}>
+              {content.icon}
+            </a>
+          ))}
+        </div>
       </div>
-      <div className="py-8 text-white w-[85%] flex justify-between">
+      <div className="pb-8 w-[85%] flex justify-between">
         <p>Privacy Policy</p>
+        <div className="lg:flex gap-4 hidden">
+          {iconArr.map((content, index) => (
+            <a key={index} href={content.link}>
+              {content.icon}
+            </a>
+          ))}
+        </div>
         <p>© 2024 by FusionX</p>
       </div>
     </div>

@@ -33,12 +33,12 @@
   height: 202%;
   transform: scale3d(0.5, 0.5, 1);
   overflow: hidden;
-  z-index: -1;
+  z-index: -2;
   position: fixed;
 }
 
 #particles-background {
-  background-image: linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%);
+  background-image: linear-gradient(60deg, #503924 0%, #000000 100%);
 }
 
 @keyframes fade {
@@ -56,5 +56,52 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+.animated-earth {
+  position: fixed;
+  animation: moveEarth 3s ease-in-out forwards;
+  transform: translateX(25vw);
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+}
+.animated-image-active {
+  animation: fadeIn 3.5s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes moveEarth {
+  0% {
+    transform: translateX(-50vw);
+    z-index: 10;
+  }
+  90% {
+    z-index: 10;
+  }
+  100% {
+    transform: translateX(25vw);
+    z-index: -1;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .animated-earth {
+    animation: none;
+    transform: translateX(0);
+    left: 0;
   }
 }
