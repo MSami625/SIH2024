@@ -4,7 +4,7 @@ import Lenis from "@studio-freight/lenis";
 import Home from "./Pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ParallaxProvider } from "react-scroll-parallax";
-import { Circle2 } from "react-preloaders";
+import { Sugar } from "react-preloaders";
 
 const lenis = new Lenis();
 
@@ -26,7 +26,12 @@ function App() {
           </Routes>
         </Router>
       </ParallaxProvider>
-      <Circle2 time={1000} />
+      <Sugar
+        time={1000}
+        animation={"fade"}
+        color={"#fff"}
+        background={"linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%)"}
+      />
     </React.Fragment>
   );
 }

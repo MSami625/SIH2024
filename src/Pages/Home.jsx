@@ -18,7 +18,7 @@ function Home() {
     <>
       <Nav navbarData={sitedata.navbarData} />
 
-      <div className="ml-[8vw] mr-[8vw]">
+      <div className="mx-[8vw]">
         <Particles />
         <Hero />
         <Services />
