@@ -24,7 +24,6 @@ function Home() {
   return (
     <>
       <Nav navbarData={sitedata.navbarData} />
-
       <div className="mx-[8vw]">
         <Particles />
         <Parallax speed={-20}>
