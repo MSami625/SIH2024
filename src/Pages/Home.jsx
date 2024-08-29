@@ -21,29 +21,28 @@ function Home() {
       { text: "Demo1", link: "/demo1" },
       { text: "Demo2", link: "/demo2" },
     ],
-    heroData:[
+    heroData: [
       {
-        heading:"Write a Title Here. Click to Add and Edit Title Text.",
-        subheading:"This is a space to welcome visitors to the site. Add an engaging image or video.",
-      }
-    ]
+        heading: "Write a Title Here. Click to Add and Edit Title Text.",
+        subheading:
+          "This is a space to welcome visitors to the site. Add an engaging image or video.",
+      },
+    ],
   };
   return (
     <>
       <Nav navbarData={sitedata.navbarData} />
       <div className="mx-[8vw]">
         <Particles />
-        <Parallax speed={-20}>
-          <Hero heroData={sitedata.heroData}/>
-      
+        <Parallax speed={-50}>
+          <Hero heroData={sitedata.heroData} />
         </Parallax>
-        
-      </div> 
-      <Services />
-      <Faq />
-      <Parallax speed={20} translateY={[10, -5]}>
-        <Footer footerData={sitedata.footerData} />
+      </div>
+      <Parallax speed={200} translateY={[-5, 2]}>
+        <Services />
+        <Faq />
       </Parallax>
+      <Footer footerData={sitedata.footerData} />
     </>
   );
 }
