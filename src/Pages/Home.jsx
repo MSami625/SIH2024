@@ -5,6 +5,7 @@ import Hero from "../Components/Home/Hero";
 import Services from "../Components/Home/services";
 import Footer from "../Components/footer";
 import Particles from "../Components/background";
+import Faq from "../Components/Home/faq";
 
 function Home() {
   const sitedata = {
@@ -20,6 +21,12 @@ function Home() {
       { text: "Demo1", link: "/demo1" },
       { text: "Demo2", link: "/demo2" },
     ],
+    heroData:[
+      {
+        heading:"Write a Title Here. Click to Add and Edit Title Text.",
+        subheading:"This is a space to welcome visitors to the site. Add an engaging image or video.",
+      }
+    ]
   };
   return (
     <>
@@ -27,10 +34,13 @@ function Home() {
       <div className="mx-[8vw]">
         <Particles />
         <Parallax speed={-20}>
-          <Hero />
+          <Hero heroData={sitedata.heroData}/>
+      
         </Parallax>
-        <Services />
-      </div>
+        
+      </div> 
+      <Services />
+      <Faq />
       <Parallax speed={20} translateY={[10, -5]}>
         <Footer footerData={sitedata.footerData} />
       </Parallax>

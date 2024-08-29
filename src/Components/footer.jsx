@@ -31,7 +31,7 @@ function footer({ footerData }) {
     },
   ];
   return (
-    <div className="mt-32 bg-white flex flex-col items-center">
+    <div className=" bg-white flex flex-col items-center">
       {/* feedback form */}
       <div className="bg-[#fff] shadow-[0_20px_rgba(255,255,255,1),0_0_20px_rgba(0,0,0,0.15)] rounded-t-[50px] h-max w-[85%] lg:grid grid-cols-[40%_50%] justify-center p-8 lg:p-12 -translate-y-24">
         <div>
