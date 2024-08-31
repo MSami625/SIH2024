@@ -6,6 +6,8 @@ import { IconContext } from "react-icons";
 function navbar({ navbarData }) {
   const [active, setActive] = useState(false);
   const navRef = useRef(null);
+  const [scrollValue, setScrollValue] = useState(0);
+
   const toggleActive = () => {
     setActive((prevActive) => !prevActive);
   };
@@ -40,9 +42,28 @@ function navbar({ navbarData }) {
     </div>
   );
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollValue(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="top-8 z-50 flex lg:block items-center justify-between sticky px-8 lg:px-24">
-      <div className="flex items-center justify-between px-6 lg:px-8 py-4 rounded-full shadow-[0_0_30px_rgba(0,0,0,0.15)] w-max lg:w-auto duration-300 bg-[rgba(255,255,255,.9)]">
+    <div
+      className={`z-50 flex lg:block items-center justify-between sticky top-0`}
+    >
+      {/* Navbar */}
+      <div
+        className={`flex items-center justify-between px-6 lg:px-8 py-4 shadow-[0_0_30px_rgba(0,0,0,0.15)] w-max lg:w-auto duration-500 bg-[rgba(255,255,255,.9)] ${
+          scrollValue > 10 ? "mx-0" : "mt-6 mx-8 lg:mx-16 rounded-full"
+        }`}
+      >
         <div className="w-max flex items-center gap-1 lg:gap-2">
           <img src={logoImage} alt="" className="w-8 lg:w-10" />
           <a href="/" className="text-xl lg:text-2xl">
@@ -56,9 +77,13 @@ function navbar({ navbarData }) {
           </button>
         </div>
       </div>
+
+      {/* Burger Icon */}
       <div
-        className={`flex lg:hidden bg-[rgba(255,255,255,.9)] absolute shadow-[0_0_30px_rgba(0,0,0,0.15)] mr-8 right-0 top-0 p-3 rounded-lg ${
-          active ? "" : ""
+        className={`flex lg:hidden bg-[rgba(255,255,255,1)] absolute shadow-[0_0_30px_rgba(0,0,0,0.15)] p-3 duration-500 ${
+          scrollValue > 10
+            ? "top-4 right-4 rounded-lg"
+            : "right-8 top-6 rounded-full"
         } `}
       >
         <div

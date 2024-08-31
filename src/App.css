@@ -38,7 +38,11 @@
 }
 
 #particles-background {
-  background-image: linear-gradient(60deg, #503924 0%, #000000 100%);
+  background-image: linear-gradient(
+    150deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(173, 73, 225, 1) 100%
+  );
 }
 
 @keyframes fade {
@@ -61,8 +65,7 @@
 
 .animated-earth {
   position: fixed;
-  animation: moveEarth 3s ease-in-out forwards;
-  transform: translateX(25vw);
+  animation: moveEarth 3s ease-in-out;
   z-index: -1;
   width: 100%;
   height: 100vh;
@@ -93,7 +96,7 @@
     z-index: 10;
   }
   100% {
-    transform: translateX(25vw);
+    transform: translateX(33vw);
     z-index: -1;
   }
 }

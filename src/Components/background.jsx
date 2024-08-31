@@ -197,6 +197,20 @@ const ParticleBackground = () => {
     };
   }, []);
 
+  const [scrollValue, setScrollValue] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollValue(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <div
@@ -209,7 +223,16 @@ const ParticleBackground = () => {
         className="vertical-centered-box"
         aria-hidden="true"
       ></div>
-      <div className="animated-earth">
+      <div
+        className="animated-earth hidden lg:flex"
+        style={{
+          transform: `${
+            scrollValue < 33
+              ? "translateX(33vw)"
+              : `translateX(${scrollValue + 473}px)`
+          }`,
+        }}
+      >
         <Canvas camera={{ position: [0, 0, 360], rotation: [0, 0, 0] }}>
           {/* <ambientLight intensity={1} /> */}
           <directionalLight position={[10, 10, 10]} intensity={10} />

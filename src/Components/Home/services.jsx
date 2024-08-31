@@ -1,47 +1,68 @@
 import React from "react";
 
-function Services() {
-
+function Services({ animate }) {
   const servicesData = [
     {
-      id: 1,
-      title: "Name of Service",
-      description: "This is the space to describe the service and explain how customers or clients can benefit from it. It’s an opportunity to add a short description that includes relevant details, like pricing, duration, location and how to book the service",
+      head: "Enhanced Clarity and Ease of Understanding",
+      description:
+        "Transforming complex language and technical jargon into easily understandable information ensures that institutes comprehend AICTE's requirements with clarity.",
     },
     {
-      id: 2,
-      title: "Name of Service",
-      description: "This is the space to describe the service and explain how customers or clients can benefit from it. It’s an opportunity to add a short description that includes relevant details, like pricing, duration, location and how to book the service",
+      head: "Customized Guidance and Relevant Documentation",
+      description:
+        "The portal dynamically generates documentation templates and fee structures based on the specific course requirements inputted by the institute, ensuring relevance and accuracy.",
     },
     {
-      id: 3,
-      title: "Name of Service",
-      description: "This is the space to describe the service and explain how customers or clients can benefit from it. It’s an opportunity to add a short description that includes relevant details, like pricing, duration, location and how to book the service",
+      head: "Time and Resource Efficiency",
+      description:
+        "By automating the parsing and presentation of information, Fusion significantly reduces the time and effort required to interpret and navigate the Approval Process Handbook.",
     },
     {
-      id: 4,
-      title: "Name of Service",
-      description: "This is the space to describe the service and explain how customers or clients can benefit from it. It’s an opportunity to add a short description that includes relevant details, like pricing, duration, location and how to book the service",
+      head: "Increased Accuracy and Compliance",
+      description:
+        "Clear instructions provided by Fusion facilitate accurate adherence to AICTE's guidelines, resulting in higher-quality submissions and reduced need for reworks.",
     },
-  
+    {
+      head: "Continuous Updates and Real-time Assistance",
+      description:
+        "The AI-based portal ensures continuous updates to reflect changes in the Approval Process Handbook and offers real-time assistance to address queries during the approval process.",
+    },
   ];
 
   return (
-    <div className="bg-[#ecedf8] pt-20">
-      <div className="flex flex-col justify-center items-start px-[8vw] gap-10 pb-20 border-b-[1px] border-b-black">
-        <div className="px-4 py-2 text-xs font-bold bg-[#2F2B36] tracking-widest text-white border-2 rounded-tr-xl">
-          SERVICES
-        </div>
-        <p className="text-4xl text-neutral-700 font-semibold">Committed to excellence</p>
+    <div
+      className={`w-full flex flex-col items-center gap-16 relative min-h-[60vh]  text-white duration-1000 ${
+        animate.services > 200 ? "-translate-x-0" : "-translate-x-full"
+      }`}
+      id="services"
+    >
+      <div className="w-[85%]">
+        {console.log(animate.services)}
+        <h1 className="text-6xl font-extrabold underline">Services</h1>
       </div>
-      
-      <div className="flex w-full flex-col lg:flex-col">
-        {servicesData.map((service) => (
-          <div key={service.id} className="border-b-[1px] border-b-black">
-          <div className="w-full flex gap-6 items-start lg:gap-48 px-[8vw] py-12 ease-in-out duration-300  flex-col lg:flex-row hover:text-white hover:bg-neutral-500">
-              <span className="text-5xl font-semibold">0{service.id}</span>
-              <h3 className="text-3xl text-center">{service.title}</h3>
-              <p className="text-base leading-7 text-justify">{service.description}</p>
+      <div className="flex flex-col gap-16 w-[85%]">
+        {servicesData.map((data, index) => (
+          <div className="w-full flex gap-8 group">
+            <div
+              key={index}
+              className={`w-[30%] h-[30vh] cursor-default group border-2 group-hover:scale-110 border-white shadow-lg duration-500 p-8 group relative hidden md:flex items-center justify-center glassmorph ${
+                index % 2 !== 0 ? "order-2" : ""
+              }`}
+            >
+              <h1 className="font-bold text-6xl text-center opacity-100 group-hover:top-0 group-hover:left-1 group-hover:text-xl group-hover:opacity-70 absolute">
+                {`0${index + 1}`}
+              </h1>
+              <p className="text-3xl font-extrabold opacity-0 group-hover:opacity-100 duration-500">
+                {data.head}
+              </p>
+            </div>
+            <div className="relative w-full border-2 border-white shadow-lg duration-500 p-8 flex items-center justify-center text-xl glassmorph">
+              <p className="font-bold text-3xl absolute opacity-100 group-hover:opacity-0 duration-500 text-center px-2 md:px-auto">
+                {data.head}
+              </p>
+              <p className="opacity-0 group-hover:opacity-100 duration-500 text-justify">
+                {data.description}
+              </p>
             </div>
           </div>
         ))}

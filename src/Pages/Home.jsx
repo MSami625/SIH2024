@@ -5,9 +5,51 @@ import Hero from "../Components/Home/Hero";
 import Services from "../Components/Home/services";
 import Footer from "../Components/footer";
 import Particles from "../Components/background";
-import Faq from "../Components/Home/faq";
 
 function Home() {
+  // Visibility Animation Controller
+  const elemArr = ["services"];
+  const initialState = elemArr.reduce((key, elementId) => {
+    key[elementId] = 0;
+    return key;
+  }, {});
+  const [inViewport, setInViewport] = useState(initialState);
+  const calculateInViewport = (elementIds) => {
+    elementIds.forEach((elementId) => {
+      const element = document.getElementById(elementId);
+      if (element) {
+        const elH = element.offsetHeight;
+        const H = window.innerHeight;
+        const r = element.getBoundingClientRect();
+        const t = r.top;
+        const b = r.bottom;
+
+        setInViewport((prevValues) => ({
+          ...prevValues,
+          [elementId]: Math.max(
+            0,
+            t > 0 ? Math.min(elH, H - t) : Math.min(b, H)
+          ),
+        }));
+      }
+    });
+  };
+  useEffect(() => {
+    calculateInViewport(elemArr);
+
+    const handleScrollResize = () => {
+      calculateInViewport(elemArr);
+    };
+
+    window.addEventListener("scroll", handleScrollResize);
+    window.addEventListener("resize", handleScrollResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollResize);
+      window.removeEventListener("resize", handleScrollResize);
+    };
+  }, elemArr);
+
   const sitedata = {
     navbarData: [
       { text: "Home", link: "/", active: true },
@@ -32,15 +74,12 @@ function Home() {
   return (
     <>
       <Nav navbarData={sitedata.navbarData} />
-      <div className="mx-[8vw]">
-        <Particles />
-        <Parallax speed={-50}>
-          <Hero heroData={sitedata.heroData} />
-        </Parallax>
-      </div>
-      <Parallax speed={200} translateY={[-5, 2]}>
-        <Services />
-        <Faq />
+      <Particles />
+      <Parallax speed={-25}>
+        <Hero heroData={sitedata.heroData} />
+      </Parallax>
+      <Parallax speed={100} translateY={[0, -2]}>
+        <Services animate={inViewport} />
       </Parallax>
       <Footer footerData={sitedata.footerData} />
     </>

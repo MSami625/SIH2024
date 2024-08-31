@@ -27,19 +27,6 @@ const Earth = () => {
   }, [rotationY, scale, rotation]);
 
   useEffect(() => {
-    const getFinalScale = () => {
-      if (window.innerWidth < 500) {
-        return [0.25, 0.25, 0.25];
-      } else if (window.innerWidth < 700) {
-        return [0.3, 0.3, 0.3];
-      } else if (window.innerWidth < 1200) {
-        return [0.45, 0.45, 0.45];
-      } else {
-        return [0.51, 0.51, 0.51];
-      }
-    };
-
-    let animationFrameId;
     const startTime = Date.now();
     const duration = 80000;
 
@@ -48,7 +35,7 @@ const Earth = () => {
       const progress = Math.min(elapsedTime / duration, 1);
 
       const finalRotationY = 0;
-      const finalScale = getFinalScale();
+      const finalScale = [0.51, 0.51, 0.51];
       const finalRotation = [0.4, -4.6, 0];
 
       const newRotationY = rotationYRef.current * (1 - progress);
@@ -70,14 +57,14 @@ const Earth = () => {
       setRotation(newRotation);
 
       if (progress < 1) {
-        animationFrameId = requestAnimationFrame(animateStateChanges);
+        requestAnimationFrame(animateStateChanges);
       }
     };
 
-    animationFrameId = requestAnimationFrame(animateStateChanges);
+    requestAnimationFrame(animateStateChanges);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animateStateChanges);
     };
   }, []);
 
@@ -94,7 +81,7 @@ const Earth = () => {
         1 - 0.2 * progress,
       ];
 
-      const newScrollRotationY = progress * Math.PI * 0.3;
+      const newScrollRotationY = progress * Math.PI * 2;
 
       setScrollScale(newScrollScale);
       setScrollRotationY(newScrollRotationY);
