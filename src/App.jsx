@@ -1,46 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
+import "./index.css";
 import Lenis from "@studio-freight/lenis";
 import Home from "./Pages/Home";
+import Forums from "./Pages/Forums";
+import Login from "./Pages/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { Sugar } from "react-preloaders";
 
 const lenis = new Lenis();
 
+lenis.on("scroll", (e) => {});
+
 function raf(time) {
   lenis.raf(time);
   requestAnimationFrame(raf);
 }
+
 requestAnimationFrame(raf);
 
 function App() {
-  const [isLoaded, setIsLoaded] = useState(true);
-  useEffect(() => {
-    const handleLoad = () => {
-      setTimeout(() => {
-        setIsLoaded(false);
-      }, 1000);
-    };
-    window.addEventListener("load", handleLoad);
-    return () => {
-      window.removeEventListener("load", handleLoad);
-    };
-  }, []);
-
   return (
     <React.Fragment>
       <ParallaxProvider>
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Home" element={<Home />} />
+            <Route path="/SIH" element={<Home />} />
+            <Route path="/Forums" element={<Forums />} />
+            <Route path="/Login" element={<Login />} />
           </Routes>
         </Router>
       </ParallaxProvider>
       <Sugar
-        customLoading={isLoaded}
-        time={0}
+        time={2000}
         animation={"fade"}
         color={"#fff"}
         background={"linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%)"}

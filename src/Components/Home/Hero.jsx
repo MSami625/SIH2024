@@ -1,23 +1,21 @@
 import React from "react";
+import hero_img1 from "../Assets/hero-img1.png";
 
-const Hero = ({ heroData }) => {
+function Hero({ data }) {
+  const { title, subtitle, description } = data;
+
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <div className="w-[85%] flex flex-col gap-10 pt-16 text-white h-screen">
-        <div className="flex flex-col items-start w-full lg:w-[50%]">
-          <span className="sm:text-[8vw] md:text-[8vw] lg:text-[4.5vw] text-[11vw] font-semibold pt-10 leading-tight">
-            {heroData[0].heading}
-          </span>
-          <p className=" text-[1.1rem] sm:text-[1.5rem] pt-5 pb-5 font-light text-justify">
-            {heroData[0].subheading}
-          </p>
-          <button className="rounded-full px-11 py-3 duration-300 cursor-pointer bg-black text-white border-2 hover:border-[#968f8f] hover:bg-white hover:text-black active:scale-[0.95]">
-            Click Me
-          </button>
-        </div>
+    <section className="w-full h-full flex flex-col items-center lg:justify-start">
+      <div className="flex flex-col items-center w-11/12 lg:w-3/4 text-center mb-12">
+        <h1 className="text-xl lg:text-4xl font-normal">{title}</h1>
+        <h1 className="text-3xl lg:text-7xl my-2 lg:my-6">{subtitle}</h1>
+        <p className="text-sm lg:text-lg lg:w-3/5 my-4 ">{description}</p>
       </div>
-    </div>
+      <div className="flex justify-center relative w-4/5 lg:w-3/6">
+        <img src={hero_img1} alt="Hero Image1" className="shadow-2xl rounded" />
+      </div>
+    </section>
   );
-};
+}
 
 export default Hero;
