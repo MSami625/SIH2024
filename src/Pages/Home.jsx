@@ -60,6 +60,7 @@ function Home() {
       image2Src: image5,
     },
     footerData: {
+      active: true,
       logoText: "FusionX",
       menuItems: {
         items: ["Home", "Events", "Stories", "Testimonials"],

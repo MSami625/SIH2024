@@ -205,7 +205,6 @@
 
 #particles-background,
 #particles-foreground {
-  left: -51%;
   top: -51%;
   width: 202%;
   height: 202%;
@@ -215,6 +214,7 @@
   position: fixed;
 }
 
+/* Slick Carousel */
 .slick-initialized,
 .slick-list,
 .slick-track,
