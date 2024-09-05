@@ -16,11 +16,11 @@ function About({ aboutData }) {
 
       {/* About */}
       {aboutItems.map((data, index) => (
-        <div key={index} className="w-full py-20 md:px-20 px-4">
-          <div className="flex flex-col md:flex-row items-center border-2 border-black">
+        <div key={index} className="w-full py-20 px-20">
+          <div className="flex items-center  border-2 border-black">
             <div
               className={`flex items-center w-full ${
-                index % 2 === 0 ? "md:order-1" : ""
+                index % 2 === 0 ? "order-1" : ""
               }`}
             >
               <img
@@ -29,7 +29,7 @@ function About({ aboutData }) {
                 className="w-full h-[50vh] object-cover"
               />
             </div>
-            <div className="w-full py-8 md:p-0">
+            <div className="w-full">
               <div className="w-[90%] flex flex-col gap-4 pl-8">
                 <h1 className="text-5xl font-bold">{data.title}</h1>
                 <p className="text-justify">{data.description}</p>

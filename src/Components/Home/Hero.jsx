@@ -53,12 +53,12 @@ function Hero() {
       <div className="flex flex-col w-full md:w-[60%] lg:w-[40%] gap-8">
         <p className="w-full text-6xl gap-8 flex flex-col font-bold">
           ALUMNI
-          <span className="relative text-3xl md:text-4xl font-['Baskervville'] font-bold italic gap-2 flex w-min md:w-auto before:absolute before:w-full before:h-[1px] before:bg-[#9a5bf8] before:-top-4">
+          <span className="relative text-4xl font-['Baskervville'] font-bold italic gap-2 flex w-min md:w-auto before:absolute before:w-full before:h-[1px] before:bg-[#9a5bf8] before:-top-4">
             Strengthen Bonds <FaHandshakeAngle className="text-[#9a5bf8]" />
             Build Futures
           </span>
         </p>
-        <p className="text-sm lg:text-lg text-justify">
+        <p className="text-sm lg:text-lg ">
           Our mission is to enhance alumni engagement, support career
           advancement, and foster a culture of giving back. Join our Alumni
           Network today and be the change that shapes tomorrow.

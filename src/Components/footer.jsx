@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Typography, Button } from "@material-tailwind/react";
 
 function Footer({ data }) {
   const {
-    active,
     logoText,
     menuItems,
     buttonText,
@@ -12,92 +11,9 @@ function Footer({ data }) {
     socialIcons,
   } = data;
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    feedback: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-  };
-
   return (
-    <footer className="flex flex-col items-center md:pb-4 glassmorph bg-[rgba(255,255,255)] relative">
-      {/* feedback */}
-      <div
-        className={`${
-          active ? "flex" : "hidden"
-        } flex-col md:flex-row justify-around items-center overflow-hidden w-screen h-[80vh] border-b-[1px] border-[rgba(0,0,0,.5)] z-1 p-8 relative bg-white before:hidden md:before:inline before:absolute before:w-screen before:h-screen before:top-0 before:-left-[45vw] before:bg-[#9a5bf8]`}
-      >
-        <p className="absolute top-8 left-auto md:left-20 text-5xl font-bold text-black md:text-white">
-          Feedback
-        </p>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col justify-center mt-12 w-full md:w-1/2 h-max rounded-lg shadow-[0_0_10px_rgba(0,0,0,.5)] p-4 z-[1] bg-white"
-        >
-          <div className="py-4 flex flex-col gap-2">
-            <label htmlFor="name">Name:</label>
-            <input
-              className="w-full border-[1px] border-[rgba(0,0,0,0.1)] rounded-sm p-2 focus:outline-none focus:border-b-black"
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="py-4 flex flex-col gap-2">
-            <label htmlFor="email">Email:</label>
-            <input
-              className="w-full border-[1px] border-[rgba(0,0,0,0.1)] rounded-sm p-2 focus:outline-none focus:border-b-black"
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="py-4 flex flex-col gap-2">
-            <label htmlFor="feedback">Feedback:</label>
-            <textarea
-              className="w-full border-[1px] border-[rgba(0,0,0,0.1)] rounded-sm p-2 focus:outline-none focus:border-b-black"
-              id="feedback"
-              name="feedback"
-              value={formData.feedback}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="bg-[#9a5bf8] text-white py-2">
-            Submit
-          </button>
-        </form>
-        <img
-          src="https://greatergood.berkeley.edu/images/jcogs_img/cache/GettyImages-1416315615_-_abcdef_-_16756da2050f2a5c89512a94e3aea69904c7adb9-fb_-_abcdef_-_fdc70d8290e0358d046ff461d05c915f0321c021.jpg"
-          alt=""
-          className="hidden md:inline object-cover h-[52vh] shadow-[0_0_10px_rgba(0,0,0,0.5)]"
-        />
-      </div>
-
-      {/* Footer Menu */}
-      <div
-        className={`w-[90%] flex flex-col gap-6 sm:gap-0 sm:flex-row items-center sm:items-start justify-between border-b-[1px] border-[rgba(0,0,0,.5)] p-8 md:p-16 md:pb-24 ${
-          active ? "" : "border-t-[1px]"
-        }`}
-      >
+    <footer className="flex flex-col items-center py-8 md:pt-12 md:pb-4 glassmorph bg-[rgba(255,255,255)] relative">
+      <div className="w-[90%] flex flex-col gap-6 sm:gap-0 sm:flex-row items-center sm:items-start justify-between border-y-[1px] border-[rgba(0,0,0,.5)] p-8 md:p-16 md:pb-24">
         <Typography
           as="a"
           href="#"
@@ -131,8 +47,6 @@ function Footer({ data }) {
           <p className="font-bold">{contactInfo.address}</p>
         </div>
       </div>
-
-      {/* Footer Detail */}
       <div className="flex flex-col sm:flex-row w-[80%] items-center sm:justify-between">
         <p className="py-2 sm:py-8">© 2024 by FusionX</p>
         <div className="flex items-center justify-end gap-2 sm:w-[40%] sm:py-8">
