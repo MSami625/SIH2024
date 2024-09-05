@@ -39,12 +39,12 @@ function App() {
           </Routes>
         </Router>
       </ParallaxProvider>
-      <Sugar
+      {/* <Sugar
         time={1000}
         animation={"fade"}
         color={"#fff"}
         background={"linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%)"}
-      />
+      /> */}
     </React.Fragment>
   );
 }

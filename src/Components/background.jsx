@@ -102,21 +102,21 @@ const Background = ({ particlesActive }) => {
         };
 
         window.particleground(document.getElementById("particles-background"), {
-          dotColor: "rgba(154,91,248,1)",
-          lineColor: "rgba(154,91,248,1)",
-          minSpeedX: 0.3,
+          dotColor: "rgba(255,255,255, 0.5)",
+          lineColor: "rgba(255,255,255, 0.1)",
+          minSpeedX: 0.2,
           maxSpeedX: 0.5,
-          minSpeedY: 0.3,
+          minSpeedY: 0.2,
           maxSpeedY: 0.5,
-          density: 50000,
+          density: 30000,
           proximity: 20,
           parallaxMultiplier: 20,
-          particleRadius: 3,
+          particleRadius: 2,
         });
 
         window.particleground(document.getElementById("particles-foreground"), {
-          dotColor: "rgba(255,255,255,1)",
-          lineColor: "rgba(255,255,255,.1)",
+          dotColor: "rgba(255,255,255, 1)",
+          lineColor: "rgba(255,255,255, 0.1)",
           minSpeedX: 0.6,
           maxSpeedX: 0.9,
           minSpeedY: 0.6,
@@ -143,18 +143,37 @@ const Background = ({ particlesActive }) => {
       {/* Particles */}
       <div
         id="particles-background"
-        className={`vertical-centered-box left-[-51%] bg-[linear-gradient(150deg,_rgba(217,228,238,1)_0%,rgba(119,128,231,1)_100%)] md:bg-none ${
-          particlesActive ? "" : "hidden"
-        }`}
+        className={`vertical-centered-box ${particlesActive ? "" : "hidden"}`}
         aria-hidden="true"
       ></div>
       <div
         id="particles-foreground"
-        className={`vertical-centered-box md:left-0 left-[51%] md:bg-[#9a5bf8] ${
-          particlesActive ? "" : "hidden"
-        }`}
+        className={`vertical-centered-box ${particlesActive ? "" : "hidden"}`}
         aria-hidden="true"
       ></div>
+
+      {/* Background Gradient */}
+      <video
+        role="presentation"
+        crossOrigin="anonymous"
+        playsInline
+        preload="auto"
+        muted
+        loop
+        tabIndex="-1"
+        autoPlay
+        style={{
+          height: "100%",
+          width: "100%",
+          objectFit: "cover",
+          opacity: 1,
+        }}
+      >
+        <source
+          src="https://video.wixstatic.com/video/11062b_e2ae833a8eaa43e38e4aa6d32eb3b8f7/480p/mp4/file.mp4"
+          type="video/mp4"
+        />
+      </video>
     </>
   );
 };
