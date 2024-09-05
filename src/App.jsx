@@ -13,7 +13,8 @@ import Network from "./Pages/Network";
 import Details from "./Pages/Details";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ParallaxProvider } from "react-scroll-parallax";
-import { Sugar } from "react-preloaders";
+
+
 
 const lenis = new Lenis();
 

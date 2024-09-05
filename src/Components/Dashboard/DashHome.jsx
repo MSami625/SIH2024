@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import JobPosts from "./JobPosts";
+import FeaturedPosts from "./featuredPosts";
 
 const DashHome = () => {
   return (
     <div>
-        <h1>Dashboard Home</h1>
+      <JobPosts />
+      <FeaturedPosts />
     </div>
-  )
-}
+  );
+};
 
-export default DashHome
+export default DashHome;
