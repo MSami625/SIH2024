@@ -221,3 +221,7 @@
 .slick-slide > div {
   height: 100%;
 }
+
+.slick-track > .slick-slide {
+  margin: 0 4px;
+}

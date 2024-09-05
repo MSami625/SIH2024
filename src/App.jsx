@@ -10,7 +10,8 @@ import Directory from "./Pages/Directory";
 import Dashboard from "./Pages/Dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ParallaxProvider } from "react-scroll-parallax";
-import { Sugar } from "react-preloaders";
+
+
 
 const lenis = new Lenis();
 
