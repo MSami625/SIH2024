@@ -5,8 +5,8 @@ import { BiSolidBarChartSquare } from "react-icons/bi";
 import { FaChartLine } from "react-icons/fa6";
 import { BsPlayCircleFill } from "react-icons/bs";
 import DashHome from "../Components/Dashboard/DashHome";
-import featuredPosts from "../Components/Dashboard/featuredPosts";
 import Header from "../Components/Dashboard/header";
+import EditProfile from "../Components/Dashboard/editProfile";
 
 import Forums from "../Pages/Forums";
 
@@ -14,9 +14,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../Firebase";
 import { useNavigate } from "react-router-dom";
 
-
 function Dashboard() {
-
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -30,7 +28,6 @@ function Dashboard() {
     }
   };
 
-  
   const navItems = [
     {
       id: 0,
@@ -48,7 +45,7 @@ function Dashboard() {
       id: 2,
       icon: <BiSolidBarChartSquare className="w-5 h-5" />,
       text: "Profile",
-      display: "Profile",
+      display: <EditProfile />,
     },
     {
       id: 3,
@@ -70,12 +67,12 @@ function Dashboard() {
   return (
     <>
       <Header />
-      <div className="w-screen h-screen pl-8 pr-8 pt-4 flex  items-start">
+      <div className="w-screen   pl-8 pr-8 pt-4 flex  items-start">
         {/* Navbar */}
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className={`relative flex flex-col items-center min-h-[80vh] rounded-3xl transition-all duration-300 ease-in-out ${
+          className={`absolute z-50 flex flex-col items-center min-h-[80vh] rounded-3xl transition-all duration-300 ease-in-out ${
             isHovered ? "w-60" : "w-16"
           } bg-[rgb(154,91,248)]`}
         >
@@ -106,7 +103,7 @@ function Dashboard() {
             ))}
           </div>
 
-          <div className="absolute bottom-10 w-full flex justify-center text-white text-2xl">
+          <div className="absolute bottom-10  p-2 px-3  rounded-lg hover:cursor-pointer duration-300 flex justify-center bg-transparent hover:bg-white hover:text-[rgb(154,91,248)]   text-white text-3xl">
             <a onClick={handleLogout}>
               <IoLogOutOutline />
             </a>
@@ -114,7 +111,7 @@ function Dashboard() {
         </div>
 
         {/* Main Content */}
-        <div className="flex p-3 min-w-[50rem]  rounded-lg max-h-[80vh] ml-6 overflow-hidden  flex-col gap-10 items-center flex-wrap justify-start ">
+        <div className="flex pl-16  rounded-lg max-h-[80vh] ml-6 overflow-hidden  flex-col gap-10 items-center flex-wrap justify-start ">
           {navItems[activeItem].display}
         </div>
       </div>
