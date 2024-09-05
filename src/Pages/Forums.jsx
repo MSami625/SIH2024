@@ -3,9 +3,6 @@ import Feeds from "../Components/Forum/feeds";
 import Nav from "../Components/Forum/forumsNav";
 import Sidebar from "../Components/Forum/forumSidebar";
 import Ranks from "../Components/Forum/ranking";
-import image1 from "../Components/Assets/profile1.webp";
-import image2 from "../Components/Assets/profile2.webp";
-import image3 from "../Components/Assets/about2.jpg";
 import { PiChatsDuotone } from "react-icons/pi";
 import { BsFillFileEarmarkPostFill } from "react-icons/bs";
 
@@ -277,29 +274,6 @@ function Forums() {
       },
     },
   });
-
-  // const tabs = {
-  //   1: {
-  //     title: "Ayurveda",
-  //     link: "/",
-  //   },
-  //   2: {
-  //     title: "Yoga & Naturo",
-  //     link: "/",
-  //   },
-  //   3: {
-  //     title: "Unani",
-  //     link: "/",
-  //   },
-  //   4: {
-  //     title: "Siddha",
-  //     link: "/",
-  //   },
-  //   5: {
-  //     title: "Homeo",
-  //     link: "/",
-  //   },
-  // };
 
   return (
     <div className="h-[100vh] overflow-hidden bg-[#fff]">

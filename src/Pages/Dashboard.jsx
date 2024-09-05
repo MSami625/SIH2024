@@ -7,9 +7,30 @@ import { BsPlayCircleFill } from "react-icons/bs";
 import DashHome from "../Components/Dashboard/DashHome";
 import featuredPosts from "../Components/Dashboard/featuredPosts";
 import Header from "../Components/Dashboard/header";
+
 import Forums from "../Pages/Forums";
 
+import { signOut } from "firebase/auth";
+import { auth } from "../Firebase";
+import { useNavigate } from "react-router-dom";
+
+
 function Dashboard() {
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign out the user
+      navigate("/"); // Navigate to the homepage after logout
+    } catch (error) {
+      console.error("Logout failed: ", error);
+      // Optionally, show an error message or alert
+      alert("Logout failed. Please try again.");
+    }
+  };
+
+  
   const navItems = [
     {
       id: 0,
@@ -86,7 +107,7 @@ function Dashboard() {
           </div>
 
           <div className="absolute bottom-10 w-full flex justify-center text-white text-2xl">
-            <a href="#">
+            <a onClick={handleLogout}>
               <IoLogOutOutline />
             </a>
           </div>

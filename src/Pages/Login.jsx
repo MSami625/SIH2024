@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Nav from "../Components/navbar";
 import Background from "../Components/background";
 import { IoIosArrowBack } from "react-icons/io";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from "../Firebase";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
-  sendPasswordResetEmail,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -20,64 +19,52 @@ const AuthForm = ({ formType, background }) => {
 
   const [selectedAccountType, setSelectedAccountType] = useState(null);
 
+  // Modified handleRegister function to send verification email
   const handleRegister = async (event, name, email, password, type) => {
     event.preventDefault();
     try {
       // Proceed with registration
       await register(name, email, password);
+      
+      // Send email verification
+      await sendEmailVerification(auth.currentUser);
+      alert("Registration successful! Please check your inbox to verify your email.");
+
       setEmail("");
       setName("");
       setPassword("");
-      // Show success notification
-      alert("Registration successful!");
 
-      // Post notification
-      // await postNotification(email, name);
-
-      handleLogin(event, email, password, type);
+      // Optional: Automatically log in user (after verification)
+      // handleLogin(event, email, password, type);
     } catch (error) {
-      // Show error notification
       alert("Registration failed. Please try again.");
-    }
-  };
-
-  const postNotification = async (email, name) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:1337/api/notifications",
-        {
-          data: {
-            email: email,
-            message: `Dear ${name}, Your Registration is Successful!`,
-          },
-        }
-      );
-      console.log("Notification posted successfully:", response.data);
-    } catch (error) {
-      console.error("Error posting notification:", error);
-      // Handle error if necessary
     }
   };
 
   const register = async (name, email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, { displayName: name });
     } catch (error) {
       throw error;
     }
   };
 
+  // Modified handleLogin function to check if email is verified
   const handleLogin = async (event, email, password) => {
     event.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      navigate("/Profile");
+
+      // Check if the email is verified
+      if (!user.emailVerified) {
+        alert("Please verify your email before logging in.");
+        return;
+      }
+
+      // Navigate to profile after successful login
+      navigate("/Dashboard");
       setEmail("");
       setPassword("");
     } catch (error) {
@@ -323,6 +310,7 @@ const Login = () => {
         { text: "Network", link: "/" },
         { text: "Events", link: "/Events" },
         { text: "Directory", link: "/Directory" },
+        { text: "Forum", link: "/Forum" },
         // Add more navigation items as needed
       ],
     },
@@ -330,6 +318,7 @@ const Login = () => {
 
   return (
     <div className={`flex flex-col items-center h-screen bg-[#f2ebfb]`}>
+      {/* Background */}
       <div className="fixed h-screen w-screen">
         <Background />
       </div>

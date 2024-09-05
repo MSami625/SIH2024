@@ -13,6 +13,7 @@ function Directory() {
         { text: "Network", link: "/" },
         { text: "Events", link: "/Events" },
         { text: "Directory", link: "/Directory", active: true },
+        { text: "Forum", link: "/Forum" },
         // Add more navigation items as needed
       ],
     },

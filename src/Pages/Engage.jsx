@@ -27,6 +27,7 @@ function Engage() {
         { text: "Network", link: "/" },
         { text: "Events", link: "/Events" },
         { text: "Directory", link: "/Directory" },
+        { text: "Forum", link: "/Forum" },
         // Add more navigation items as needed
       ],
     },

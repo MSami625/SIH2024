@@ -29,6 +29,7 @@ function Events() {
         { text: "Network", link: "/" },
         { text: "Events", link: "/Events", active: true },
         { text: "Directory", link: "/Directory" },
+        { text: "Forum", link: "/Forum" },
         // Add more navigation items as needed
       ],
     },
