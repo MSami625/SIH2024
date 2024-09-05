@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,8 +7,28 @@ import { FaHandshakeAngle } from "react-icons/fa6";
 // import image2 from "https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1725321600&semt=ais_hybrid";
 // import image3 from "https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1725321600&semt=ais_hybrid";
 import hero_img1 from "../Assets/hero-img1.png";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../Firebase";
 
 function Hero() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check if the user is logged in or not
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true); // User is signed in
+      } else {
+        setIsLoggedIn(false); // User is signed out
+      }
+    });
+
+    // Clean up the listener when component unmounts
+    return () => unsubscribe();
+  }, []);
+
+
   const settings = {
     infinite: true,
     autoplay: true,
@@ -64,11 +84,13 @@ function Hero() {
           Network today and be the change that shapes tomorrow.
           <span className="block font-bold text-xl mt-2">Welcome aboard!</span>
         </p>
+        {!isLoggedIn && (
         <a href="/login" className="flex items-center w-max">
           <div className="duration-300 bg-[#9a5bf8] px-4 py-2 text-white border-[1px] hover:border-black hover:bg-[#bd97f8]">
             Register / Login
           </div>
         </a>
+      )}
       </div>
 
       {/* Success Stories */}
