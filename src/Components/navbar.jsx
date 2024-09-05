@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../Firebase";
 
 const Nav = ({ navbarData }) => {
-  const { logoText, navItems, active } = navbarData;
+  const { logoText, navItems } = navbarData;
   const [openNav, setOpenNav] = React.useState(false);
   const [user, setUser] = useState(null);
 
@@ -71,13 +71,9 @@ const Nav = ({ navbarData }) => {
   );
 
   return (
-    <Navbar className="text-['inherit'] top-0 sticky z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 border-0">
+    <Navbar className="text-['inherit'] top-0 sticky z-50 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 border-0 shadow-lg">
       <div className="flex items-center justify-between pl-4 text-blue-gray-900">
-        <div
-          className={`flex items-center gap-4 ${
-            active ? "w-full justify-between" : ""
-          }`}
-        >
+        <div className={`flex items-center gap-4 w-full justify-between`}>
           <Typography
             as="a"
             href=""
@@ -93,25 +89,6 @@ const Nav = ({ navbarData }) => {
           <div className="mr-4 hidden lg:block">{navList}</div>
         </div>
         <div className="flex items-center gap-4">
-          {navbarData.link != null ? (
-            isLoggedIn() ? ( // Show Log Out button if user is logged in
-              <button
-                className="flex items-center text-[16px] relative p-1 before:absolute before:bg-black before:bottom-0 before:left-0 before:w-[100%] before:h-[4%] lg:before:hover:scale-x-100 before:origin-left before:duration-500 before:scale-x-0"
-                onClick={() => auth.signOut()}
-              >
-                Log Out
-              </button>
-            ) : (
-              <Link
-                to={navbarData.link}
-                className="flex items-center text-[16px] relative p-1 before:absolute before:bg-black before:bottom-0 before:left-0 before:w-[100%] before:h-[4%] lg:before:hover:scale-x-100 before:origin-left before:duration-500 before:scale-x-0"
-              >
-                Log In
-              </Link>
-            )
-          ) : (
-            <></>
-          )}
           <IconButton
             variant="text"
             className="h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden flex"

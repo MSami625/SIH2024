@@ -1,64 +1,50 @@
 import React from "react";
-import { ParallaxBanner, ParallaxBannerLayer } from "react-scroll-parallax";
-import About from "../Components/Home/About";
-import Background from "../Components/background";
-import Features from "../Components/Home/features";
-import Footer from "../Components/footer";
-import Hero from "../Components/Home/Hero";
 import Nav from "../Components/navbar";
+import Slider from "react-slick";
+import Footer from "../Components/footer";
+import { IoIosArrowRoundForward } from "react-icons/io";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-// Images
-import image1 from "../Components/Assets/about1.jpg";
-import image2 from "../Components/Assets/about2.jpg";
-import image3 from "../Components/Assets/about3.jpg";
-import image4 from "../Components/Assets/featureImage1.webp";
-import image5 from "../Components/Assets/featureImage2.webp";
+function Engage() {
+  const settings = {
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows: false,
+    fade: true,
+    cssEase: "linear",
+    pauseOnHover: true,
+    pauseOnFocus: true,
+  };
 
-function Home() {
-  // Home Page Content
   const siteData = {
     navbarData: {
       logoText: "FusionX",
       navItems: [
-        { text: "Home", link: "/", active: true },
-        { text: "Engage", link: "/Engage" },
-        { text: "Network", link: "/Dashboard" },
+        { text: "Home", link: "/" },
+        { text: "Engage", link: "/Engage", active: true },
+        { text: "Network", link: "/" },
         { text: "Events", link: "/Events" },
         { text: "Directory", link: "/Directory" },
         // Add more navigation items as needed
       ],
     },
-    aboutData: {
-      connect: {
-        image: image1,
-        title: "Stay in Touch, Stay Inspired.",
+    sliderData: [
+      {
+        head: "GIVE BACK / DONATE",
+        link: "Empower the Future",
         description:
-          "Join our Alumni Portal to stay connected with your alma mater and fellow graduates. Create and personalize your profile, update your information, and discover opportunities to engage with the university community. Claim your spot in our alumni network and keep your connection alive!",
-        btn: "CONNECT",
+          "At the Alumni Portal, we're more than just a network—we're a force for innovation, development, and positive change. We actively seek partnerships with alumni and stakeholders who share our vision for a brighter future. If you’re driven by the desire to make a lasting impact, we welcome you to join us in creating opportunities that not only benefit our institution but also leave a lasting mark on the world.",
       },
-      network: {
-        image: image2,
-        title: "Connections that Shape Tomorrow.",
+      {
+        head: "SPONSOR / PARTNER WITH US",
+        link: "Become a Catalyst for Change",
         description:
-          "Expand your professional and social circles through our Alumni Network. Connect with peers, current students, and faculty based on shared interests, professions, or geographic location. Foster meaningful relationships, mentorships, and collaborations with alumni around the globe.",
-        btn: "NETWORK",
+          "Take your contribution further by sponsoring specific initiatives, events, or projects. Sponsorship allows you to focus your impact on areas that matter most to you, ensuring that your support drives the outcomes you're passionate about. Whether it's a scholarship, a research project, or an alumni event, your sponsorship will create lasting benefits for the entire community.",
       },
-      donate: {
-        image: image3,
-        title: "Give Back, Create Impact.",
-        description:
-          "Support the future of our university by contributing to scholarships, research, and projects. Our Donation Portal offers a secure and simple way to make donations, sponsor initiatives, or fund special causes that align with your values and passions. Make a difference today!",
-        btn: "DONATE",
-      },
-    },
-    featuresData: {
-      title: "SUBSCRIBE TO PREMIUM",
-      subtitle:
-        "Our Alumni Association Platform provides premium benefits like alumni mentorship, a robust job portal, and direct networking opportunities.",
-      description: "Get the support and tools you need to advance your career.",
-      image1Src: image4,
-      image2Src: image5,
-    },
+      // Add more slides as needed
+    ],
     footerData: {
       logoText: "FusionX",
       menuItems: {
@@ -87,49 +73,81 @@ function Home() {
     },
   };
 
+  const sliderData = siteData.sliderData;
+
   return (
-    <div className="App">
+    <div className="w-full">
       <Nav navbarData={siteData.navbarData} />
 
-      {/* Background */}
-      <div className="fixed z-[-3] h-screen w-screen">
-        <Background particlesActive={true} />
+      <div className="flex md:flex-row flex-col gap-12 w-full p-4 md:p-12 ">
+        {/* Slider Container */}
+        <div className="md:w-1/2">
+          <Slider {...settings}>
+            {sliderData.map((data, index) => (
+              <div key={index} className="h-full">
+                <div className="flex flex-col w-full h-full gap-8 px-8 py-6 justify-center">
+                  <p className="text-4xl font-bold text-[#562a98] mb-12">
+                    {data.head}
+                  </p>
+                  <div className="bg-[#562a98] text-white w-full h-[50%] shadow-lg p-4 text-justify flex items-center">
+                    {data.description}
+                  </div>
+                  <a
+                    href="/"
+                    className="text-[#562a98] font-bold flex gap-2 items-center group hover:underline"
+                  >
+                    {data.link}
+                    <IoIosArrowRoundForward className="w-6 h-6 group-hover:ml-4 duration-300 group-hover:bg-[#562a98] group-hover:text-white rounded-full" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+
+        {/* Images Container */}
+        <div className="hidden w-1/2 relative md:grid grid-cols-3 grid-rows-3 max-h-[75vh] gap-y-4">
+          <div className="row-start-1 col-start-1 border-2 border-black mr-4">
+            <img
+              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="row-start-1 col-span-3 border-2 border-black">
+            <img
+              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="row-start-2 col-span-2 border-2 border-black mr-4">
+            <img
+              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="row-start-2 col-start-3 border-2 border-black">
+            <img
+              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="row-start-3 col-span-3 border-2 border-black">
+            <img
+              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
       </div>
-      {/* Hero */}
-      <ParallaxBanner
-        className="h-[100vh] top-0"
-        style={{ position: "sticky" }}
-      >
-        <ParallaxBannerLayer
-          speed={30}
-          className="md:h-max"
-          style={{ inset: "0 0" }}
-        >
-          <Hero />
-        </ParallaxBannerLayer>
-      </ParallaxBanner>
 
-      <About aboutData={siteData.aboutData} />
-
-      <div className="bg-white z-[1] relative">
-        {/* Features */}
-        <ParallaxBanner
-          className="h-[100vh] top-0"
-          style={{ position: "sticky" }}
-        >
-          <ParallaxBannerLayer
-            speed={30}
-            className="md:h-max"
-            style={{ inset: "-50px 0" }}
-          >
-            <Features featuresData={siteData.featuresData} />
-          </ParallaxBannerLayer>
-        </ParallaxBanner>
-
-        <Footer data={siteData.footerData} />
-      </div>
+      <Footer data={siteData.footerData} />
     </div>
   );
 }
 
-export default Home;
+export default Engage;

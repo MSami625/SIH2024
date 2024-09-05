@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Background = () => {
+const Background = ({ particlesActive }) => {
   useEffect(() => {
     let resizeCanvas;
 
@@ -143,12 +143,12 @@ const Background = () => {
       {/* Particles */}
       <div
         id="particles-background"
-        className="vertical-centered-box"
+        className={`vertical-centered-box ${particlesActive ? "" : "hidden"}`}
         aria-hidden="true"
       ></div>
       <div
         id="particles-foreground"
-        className="vertical-centered-box"
+        className={`vertical-centered-box ${particlesActive ? "" : "hidden"}`}
         aria-hidden="true"
       ></div>
 
@@ -166,7 +166,6 @@ const Background = () => {
           height: "100%",
           width: "100%",
           objectFit: "cover",
-          objectPosition: "center center",
           opacity: 1,
         }}
       >

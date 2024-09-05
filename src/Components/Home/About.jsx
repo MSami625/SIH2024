@@ -1,102 +1,49 @@
 import React from "react";
-import listLogo from "../Assets/list-logo.webp";
 
 function About({ aboutData }) {
-  const { section1, section2, section3, heading, subHeading } = aboutData;
+  const aboutItems = [aboutData.connect, aboutData.network, aboutData.donate];
 
   return (
-    <section className="flex flex-col items-center pb-24 pt-8 overflow-x-hidden bg-white">
-      <div className="md:w-3/5 flex flex-col items-center text-center">
-        <h4 className="text-xl md:text-4xl py-6">{heading}</h4>
-        <h2 className="text-3xl md:text-6xl leading-70 w-[90%]">
-          {subHeading}
-        </h2>
+    <section className="flex flex-col items-center pt-8 overflow-x-hidden bg-white relative">
+      {/* Head */}
+      <div className="md:w-3/5 flex flex-col items-center text-center z-10 relative">
+        <p className="text-xl md:text-4xl py-6"></p>
+        <p className="text-3xl md:text-6xl leading-70 w-[90%]">
+          The platform is designed to enhance connections and support for our
+          graduates.
+        </p>
       </div>
 
-      {/* Section1 */}
-      <div className="w-full lg:h-[80vh] flex flex-col md:flex-row items-center mt-24">
-        <div className="md:w-2/5 h-[50vh] md:h-full relative flex items-start md:items-center justify-center md:justify-end z-[1] before:absolute md:before:h-full before:h-3/4 md:before:w-4/5 before:w-full before:left-0 md:before:top-0 before:top-12 before:bg-[#9f70fd] before:z-[-1] md:before:rounded-r-lg before:rounded-t-lg">
-          <img
-            src={section1.Image[0]}
-            alt=""
-            className="w-1/2 md:w-3/5 rounded-xl shadow-[1px_1px_5px_rgba(0,0,0,1)]"
-          />
-        </div>
-        <div className="md:w-1/2 flex justify-center text-justify md:text-left">
-          <div className="w-5/6 md:w-[65%]">
-            <h1 className="text-2xl md:text-5xl">{section1.title}</h1>
-            <p className="md:text-2xl mt-8">{section1.description}</p>
-            <ul className="text-sm md:text-lg my-8">{section1.paragraph}</ul>
+      {/* About */}
+      {aboutItems.map((data, index) => (
+        <div key={index} className="w-full py-20 px-20">
+          <div className="flex items-center  border-2 border-black">
+            <div
+              className={`flex items-center w-full ${
+                index % 2 === 0 ? "order-1" : ""
+              }`}
+            >
+              <img
+                src={data.image}
+                alt={data.title}
+                className="w-full h-[50vh] object-cover"
+              />
+            </div>
+            <div className="w-full">
+              <div className="w-[90%] flex flex-col gap-4 pl-8">
+                <h1 className="text-5xl font-bold">{data.title}</h1>
+                <p className="text-justify">{data.description}</p>
+                <a
+                  href="/"
+                  className="bg-black w-max text-white px-12 py-2 hover:bg-white hover:text-black duration-300 border-2 hover:border-black"
+                >
+                  {data.btn}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Section2 */}
-      <div className="w-full lg:h-[80vh] flex flex-col md:flex-row items-center mt-32 md:mt-16">
-        <div className="md:w-1/2 flex justify-center order-2 md:order-1">
-          <div className="w-5/6 md:w-[65%]">
-            <h1 className="text-2xl md:text-5xl">{section2.title}</h1>
-            <p className="md:text-2xl mt-8">{section2.description}</p>
-            <ul className="text-sm md:text-lg my-8">
-              <li className="flex items-center gap-6">
-                <img alt="" src={listLogo} />
-                {section2.paragraph[0]}
-              </li>
-              <li className="flex items-center gap-6">
-                <img alt="" src={listLogo} />
-                {section2.paragraph[1]}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="md:w-1/2 h-[50vh] md:h-full relative flex justify-center items-start md:items-center md:justify-start order-1 md:order-2 z-[1] before:absolute md:before:h-full before:h-3/4 md:before:w-4/5 before:w-full before:right-0 md:before:top-0 before:top-12 before:bg-[#9f70fd] before:z-[-1] md:before:rounded-l-lg before:rounded-t-lg">
-          <img src={section2.Image[0]} alt="" className="w-1/2 rounded-xl" />
-          <img
-            src={section2.Image[1]}
-            alt=""
-            className="w-2/6 rounded-2xl absolute top-[10%] left-[5%] md:left-[40%]"
-          />
-        </div>
-      </div>
-
-      {/* Section3 */}
-      <div className="w-full lg:h-[80vh] flex flex-col md:flex-row items-center mt-24">
-        <div className="md:w-1/3 h-[50vh] md:h-full relative flex items-start md:items-center justify-center md:justify-end z-[1] before:absolute md:before:h-full before:h-3/4 md:before:w-4/5 before:w-full before:left-0 md:before:top-0 before:top-12 before:bg-[#9f70fd] before:z-[-1] md:before:rounded-r-lg before:rounded-t-lg">
-          <img
-            src={section3.Image[0]}
-            alt=""
-            className="w-3/5 md:w-3/4 rounded-xl"
-          />
-        </div>
-        <div className="md:w-2/3 flex justify-center">
-          <div className="w-5/6 md:w-[65%]">
-            <h1 className="text-2xl md:text-5xl">{section3.title}</h1>
-            <p className="md:text-2xl mt-8">{section3.description}</p>
-            <ul className="text-sm md:text-md my-8 flex flex-col md:gap-12">
-              <li className="flex flex-col md:flex-row md:items-center md:gap-6">
-                <div className="flex items-center">
-                  <img alt="" src={listLogo} />
-                  {section3.paragraph[0]}
-                </div>
-                <div className="flex items-center">
-                  <img alt="" src={listLogo} />
-                  {section3.paragraph[1]}
-                </div>
-              </li>
-              <li className="flex flex-col md:flex-row md:items-center md:gap-6">
-                <div className="flex items-center">
-                  <img alt="" src={listLogo} />
-                  {section3.paragraph[2]}
-                </div>
-                <div className="flex items-center">
-                  <img alt="" src={listLogo} />
-                  {section3.paragraph[3]}
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      ))}
     </section>
   );
 }

@@ -319,14 +319,12 @@ const Login = () => {
       logoText: "FusionX",
       navItems: [
         { text: "Home", link: "/" },
-        { text: "Connect", link: "/" },
-        { text: "Engage", link: "/" },
-        { text: "Grow", link: "/" },
-        { text: "Directory", link: "/" },
+        { text: "Engage", link: "/Engage" },
+        { text: "Network", link: "/" },
+        { text: "Events", link: "/Events" },
+        { text: "Directory", link: "/Directory" },
         // Add more navigation items as needed
       ],
-      link: null,
-      active: true,
     },
   };
 
