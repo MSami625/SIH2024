@@ -323,6 +323,7 @@ const Login = () => {
         { text: "Network", link: "/" },
         { text: "Events", link: "/Events" },
         { text: "Directory", link: "/Directory" },
+        { text: "Forum", link: "/Forum" },
         // Add more navigation items as needed
       ],
     },
@@ -330,6 +331,7 @@ const Login = () => {
 
   return (
     <div className={`flex flex-col items-center h-screen bg-[#f2ebfb]`}>
+      {/* Background */}
       <div className="fixed h-screen w-screen">
         <Background />
       </div>

@@ -8,6 +8,9 @@ import Login from "./Pages/Login";
 import Engage from "./Pages/Engage";
 import Directory from "./Pages/Directory";
 import Dashboard from "./Pages/Dashboard";
+import Forums from "./Pages/Forums";
+import Network from "./Pages/Network";
+import Details from "./Pages/Details";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { Sugar } from "react-preloaders";
@@ -31,11 +34,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Home" element={<Home />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Events" element={<Events />} />
-            <Route path="/Engage" element={<Engage />} />
             <Route path="/Directory" element={<Directory />} />
             <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/Events" element={<Events />} />
+            <Route path="/Engage" element={<Engage />} />
+            <Route path="/Forum" element={<Forums />} />
+            <Route path="/Network" element={<Network />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Edit_Profile" element={<Details />} />
           </Routes>
         </Router>
       </ParallaxProvider>
