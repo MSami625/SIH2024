@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-import Modal from "react-modal"; // Import Modal
+import Modal from "react-modal";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
 
 Modal.setAppElement("#root");
 
@@ -15,7 +16,15 @@ const truncateText = (text, wordLimit) => {
 };
 
 const JobPosts = () => {
-  // Dummy data for job posts
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [formData, setFormData] = useState({
+    position: "",
+    company: "",
+    description: "",
+    contact: "",
+  });
+
   const jobPosts = [
     {
       id: 1,
@@ -61,24 +70,50 @@ const JobPosts = () => {
     },
   ];
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(null);
-
-  const handleJobClick = (job) => {
-    setSelectedJob(job);
-    setModalIsOpen(true);
-  };
-
   const settings = {
     infinite: true,
     autoplay: false,
-    autoplaySpeed: 3000,
     arrows: true,
     cssEase: "linear",
     pauseOnHover: true,
     pauseOnFocus: true,
     slidesToShow: 3,
     slidesToScroll: 1,
+  };
+
+  const handleJobClick = (job) => {
+    setSelectedJob(job);
+    setModalIsOpen(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const jobData = {
+      data: {
+        position: formData.position,
+        company: formData.company,
+        job_description: formData.description,
+        contact: formData.contact,
+      },
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:1337/api/jobs",
+        jobData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log("Job posted successfully:", response.data);
+      setModalIsOpen(false);
+    } catch (error) {
+      console.error("Error posting job data:", error);
+    }
   };
 
   return (
@@ -113,7 +148,7 @@ const JobPosts = () => {
         </div>
       </div>
 
-      {/* Modal for job details */}
+      {/* Modal for job details and new job form */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
@@ -121,7 +156,7 @@ const JobPosts = () => {
         className="modal"
         overlayClassName="overlay"
       >
-        {selectedJob && (
+        {selectedJob ? (
           <div className="p-4">
             <h2 className="text-2xl font-semibold mb-4">Job Details</h2>
             <p className="text-xl font-bold">{selectedJob.title}</p>
@@ -137,6 +172,79 @@ const JobPosts = () => {
               </button>
             </div>
           </div>
+        ) : (
+          <>
+            <h2 className="text-2xl font-semibold mb-4">Add New Job Post</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">
+                  Job Position
+                </label>
+                <input
+                  type="text"
+                  name="position"
+                  value={formData.position}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">
+                  Company Name
+                </label>
+                <input
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">
+                  Job Description
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  rows="4"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">
+                  Contact Details
+                </label>
+                <input
+                  type="text"
+                  name="contact"
+                  value={formData.contact}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setModalIsOpen(false)}
+                  className="px-4 py-2 bg-gray-500 text-white rounded-lg mr-2 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </>
         )}
       </Modal>
 

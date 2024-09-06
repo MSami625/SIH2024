@@ -64,45 +64,7 @@ const AuthForm = ({ formType, background }) => {
       }
 
       // Navigate to profile after successful login
-      navigate("/Dashboard");
-      setEmail("");
-      setPassword("");
-    } catch (error) {
-      alert("Login failed. Please check your credentials.");
-    }
-  };
-  const handleLoginFirst = async (event, email, password, type) => {
-    event.preventDefault();
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const currentUser = auth.currentUser;
-      if (currentUser) {
-        const userData = {
-          uid: currentUser.uid,
-          email: currentUser.email,
-          type: type,
-          password: password,
-          name: currentUser.displayName || "Default Name", // Use display name or a default name if not available
-        };
-
-        // Make a POST request to your API using Axios to create user data entry
-        axios
-          .post("http://localhost:1337/api/userdata", { data: userData })
-          .then((response) => {
-            navigate("/Profile");
-          })
-          .catch((error) => {
-            // Show error notification for entry creation
-            alert("Error creating user data entry. Please try again.");
-          });
-      } else {
-        // If currentUser is null, show error notification
-        alert("User not found. Please log in again.");
-      }
+      navigate("/Edit_Profile");
       setEmail("");
       setPassword("");
     } catch (error) {
