@@ -4,8 +4,15 @@ import Modal from "react-modal"; // Import Modal
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Set the app element for accessibility
 Modal.setAppElement("#root");
+
+const truncateText = (text, wordLimit) => {
+  const words = text.split(" ");
+  if (words.length > wordLimit) {
+    return words.slice(0, wordLimit).join(" ") + "...";
+  }
+  return text;
+};
 
 const JobPosts = () => {
   // Dummy data for job posts
@@ -55,23 +62,11 @@ const JobPosts = () => {
   ];
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    position: "",
-    company: "",
-    description: "",
-    contact: "",
-  });
+  const [selectedJob, setSelectedJob] = useState(null);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted", formData);
-    setModalIsOpen(false);
+  const handleJobClick = (job) => {
+    setSelectedJob(job);
+    setModalIsOpen(true);
   };
 
   const settings = {
@@ -92,7 +87,7 @@ const JobPosts = () => {
         <div className="flex items-center w-full justify-between">
           <h1 className="text-3xl text-[rgb(77,47,121)]">Posted Jobs</h1>
           <button
-            className="top-4 right-4 px-4 py-2 bg-[rgb(77,47,121)] text-white rounded-lg duration-300  hover:border-[rgb(77,47,121)] border-2 hover:bg-white hover:text-[rgb(77,47,121)] focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="top-4 right-4 px-4 py-2 bg-[rgb(77,47,121)] text-white rounded-lg duration-300 hover:border-[rgb(77,47,121)] border-2 hover:bg-white hover:text-[rgb(77,47,121)] focus:outline-none focus:ring-2 focus:ring-blue-400"
             onClick={() => setModalIsOpen(true)}
           >
             New Opening
@@ -105,9 +100,10 @@ const JobPosts = () => {
             {jobPosts.map((job) => (
               <div
                 key={job.id}
-                className="p-4 w-[10px] bg-white mt-4  shadow-[0_0_10px_rgba(77,47,121,0.5)]  text-[rgb(77,47,121)] rounded-lg  focus:outline-none"
+                className="p-4 bg-white mt-4 shadow-[0_0_10px_rgba(77,47,121,0.5)] text-[rgb(77,47,121)] rounded-lg focus:outline-none cursor-pointer"
+                onClick={() => handleJobClick(job)}
               >
-                <h3 className="text-xl font-semibold ">{job.title}</h3>
+                <h3 className="text-xl font-semibold">{job.title}</h3>
                 <p className="text-[rgb(154,91,248)]">{job.company}</p>
                 <p className="text-[rgb(154,91,248)]">{job.location}</p>
                 <p className="text-[rgb(154,91,248)] font-bold">{job.salary}</p>
@@ -117,84 +113,31 @@ const JobPosts = () => {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal for job details */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Add New Job Post"
+        contentLabel="Job Details"
         className="modal"
         overlayClassName="overlay"
       >
-        <h2 className="text-2xl font-semibold mb-4">Add New Job Post</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">
-              Job Position
-            </label>
-            <input
-              type="text"
-              name="position"
-              value={formData.position}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              required
-            />
+        {selectedJob && (
+          <div className="p-4">
+            <h2 className="text-2xl font-semibold mb-4">Job Details</h2>
+            <p className="text-xl font-bold">{selectedJob.title}</p>
+            <p className="text-lg">{selectedJob.company}</p>
+            <p className="text-lg">{selectedJob.location}</p>
+            <p className="text-lg font-bold">{selectedJob.salary}</p>
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setModalIsOpen(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              >
+                Close
+              </button>
+            </div>
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">
-              Company Name
-            </label>
-            <input
-              type="text"
-              name="company"
-              value={formData.company}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">
-              Job Description
-            </label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              rows="4"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">
-              Contact Details
-            </label>
-            <input
-              type="text"
-              name="contact"
-              value={formData.contact}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              required
-            />
-          </div>
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={() => setModalIsOpen(false)}
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg mr-2 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+        )}
       </Modal>
 
       {/* Styles for the modal */}

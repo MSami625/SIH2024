@@ -41,7 +41,7 @@ const Details = () => {
   return (
     <div className="p-10 ml-24 min-w-[70vw] flex md:items-center justify-center bg-gray-100">
       {/* Profile Form */}
-      <div className="max-w-4xl w-full bg-white rounded-lg shadow-md p-6 m-4 md:m-0">
+      <div className="max-w-4xl w-full bg-white rounded-lg shadow-md p-6 m-4 md:m-0 max-h-[90vh] flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-4">
             <img
@@ -65,43 +65,49 @@ const Details = () => {
           </button>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
-            {formFields.map((field) => (
-              <label key={field.name} className="block">
-                <span className="text-gray-700">{field.label}</span>
-                <input
-                  type={field.type}
-                  name={field.name}
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                  disabled={
-                    ["collegeName", "batch", "department"].includes(
-                      field.name
-                    ) || !isEditing
-                  }
-                  className={`mt-1 block w-full p-2 border rounded-lg focus:outline-none ${
-                    isEditing ||
-                    ["collegeName", "batch", "department"].includes(field.name)
-                      ? "focus:border-blue-600"
-                      : "bg-gray-200 cursor-not-allowed"
-                  }`}
-                  required
-                />
-              </label>
-            ))}
-          </div>
+        {/* Scrollable Form Container */}
+        <div className="flex-1 overflow-y-auto">
+          {" "}
+          {/* Ensures the form can scroll */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              {formFields.map((field) => (
+                <label key={field.name} className="block">
+                  <span className="text-gray-700">{field.label}</span>
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    value={formData[field.name]}
+                    onChange={handleChange}
+                    disabled={
+                      ["collegeName", "batch", "department"].includes(
+                        field.name
+                      ) || !isEditing
+                    }
+                    className={`mt-1 block w-full p-2 border rounded-lg focus:outline-none ${
+                      isEditing ||
+                      ["collegeName", "batch", "department"].includes(
+                        field.name
+                      )
+                        ? "focus:border-blue-600"
+                        : "bg-gray-200 cursor-not-allowed"
+                    }`}
+                    required
+                  />
+                </label>
+              ))}
+            </div>
 
-          {isEditing && (
-            <button
-              type="submit"
-              className="w-full mt-4 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
-            >
-              Save
-            </button>
-          )}
-        </form>
+            {isEditing && (
+              <button
+                type="submit"
+                className="w-full mt-4 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
+              >
+                Save
+              </button>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );
