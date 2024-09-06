@@ -25,14 +25,16 @@ const Details = () => {
         uid: user.uid,
         name: user.displayName,
       });
-      checkUserExists(user.uid);  // Check user existence whenever the page is accessed
+      checkUserExists(user.uid); // Check user existence whenever the page is accessed
     }
   }, []);
 
   // Function to check if the user exists in the backend
   const checkUserExists = async (uid) => {
     try {
-      const response = await axios.get(`http://localhost:1337/api/userdata?filters[uid][$eq]=${uid}`);
+      const response = await axios.get(
+        `http://192.168.137.201:1337/api/userdata?filters[uid][$eq]=${uid}`
+      );
       if (response.data && response.data.data.length > 0) {
         console.log("User exists, navigating to Dashboard...");
         navigate("/Dashboard");
@@ -85,9 +87,12 @@ const Details = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:1337/api/userdata", {
-        data: payload,
-      });
+      const response = await axios.post(
+        "http://192.168.137.201:1337/api/userdata",
+        {
+          data: payload,
+        }
+      );
       console.log("User data posted successfully:", response.data);
       alert("Data submitted successfully!");
       e.target.reset();

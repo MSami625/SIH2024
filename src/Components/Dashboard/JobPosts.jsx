@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-import Modal from "react-modal";
+import Modal from "react-modal"; // Import Modal
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 
+// Set the app element for accessibility
 Modal.setAppElement("#root");
 
 const truncateText = (text, wordLimit) => {
@@ -15,9 +16,9 @@ const truncateText = (text, wordLimit) => {
   return text;
 };
 
-const JobPosts = () => {
+const JobPosts = ({ id, jobs }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedJob, setSelectedJob] = useState(null);
+  const [selectedJob, setSelectedJob] = useState(null); // State to manage selected job
   const [formData, setFormData] = useState({
     position: "",
     company: "",
@@ -25,51 +26,59 @@ const JobPosts = () => {
     contact: "",
   });
 
-  const jobPosts = [
-    {
-      id: 1,
-      title: "Frontend Developer",
-      company: "Google",
-      location: "San Francisco",
-      salary: "$120k",
-    },
-    {
-      id: 2,
-      title: "Backend Developer",
-      company: "Amazon",
-      location: "Seattle",
-      salary: "$110k",
-    },
-    {
-      id: 3,
-      title: "Full Stack Developer",
-      company: "Microsoft",
-      location: "Redmond",
-      salary: "$130k",
-    },
-    {
-      id: 4,
-      title: "DevOps Engineer",
-      company: "Netflix",
-      location: "Los Angeles",
-      salary: "$115k",
-    },
-    {
-      id: 5,
-      title: "Data Scientist",
-      company: "Facebook",
-      location: "Menlo Park",
-      salary: "$125k",
-    },
-    {
-      id: 6,
-      title: "UX Designer",
-      company: "Apple",
-      location: "Cupertino",
-      salary: "$140k",
-    },
-  ];
+  // Handle input change in form
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const jobData = {
+      data: {
+        position: formData.position,
+        company: formData.company,
+        job_description: formData.description,
+        contact: formData.contact,
+        user_datum: id,
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        "http://192.168.137.201:1337/api/jobs",
+        jobData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Job posted successfully:", response.data);
+      setModalIsOpen(false);
+    } catch (error) {
+      console.error("Error posting job data:", error);
+    }
+  };
+
+  const handleDelete = async (jobId) => {
+    try {
+      await axios.delete(`http://192.168.137.201:1337/api/jobs/${jobId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("Job deleted successfully");
+    } catch (error) {
+      // Handle errors
+      console.error("Error deleting job:", error);
+    }
+  };
+
+  // Job carousel settings
   const settings = {
     infinite: true,
     autoplay: false,
@@ -81,40 +90,8 @@ const JobPosts = () => {
     slidesToScroll: 1,
   };
 
-  const handleJobClick = (job) => {
-    setSelectedJob(job);
-    setModalIsOpen(true);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const jobData = {
-      data: {
-        position: formData.position,
-        company: formData.company,
-        job_description: formData.description,
-        contact: formData.contact,
-      },
-    };
-    try {
-      const response = await axios.post(
-        "http://localhost:1337/api/jobs",
-        jobData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      console.log("Job posted successfully:", response.data);
-      setModalIsOpen(false);
-    } catch (error) {
-      console.error("Error posting job data:", error);
-    }
-  };
+  // Check if jobs is null or an empty array
+  const isEmpty = !jobs || jobs.length === 0;
 
   return (
     <div className="text-center font-bold text-xl">
@@ -123,47 +100,84 @@ const JobPosts = () => {
           <h1 className="text-3xl text-[rgb(77,47,121)]">Posted Jobs</h1>
           <button
             className="top-4 right-4 px-4 py-2 bg-[rgb(77,47,121)] text-white rounded-lg duration-300 hover:border-[rgb(77,47,121)] border-2 hover:bg-white hover:text-[rgb(77,47,121)] focus:outline-none focus:ring-2 focus:ring-blue-400"
-            onClick={() => setModalIsOpen(true)}
+            onClick={() => {
+              setSelectedJob(null);
+              setModalIsOpen(true);
+            }}
           >
             New Opening
           </button>
         </div>
 
         <div className="w-full max-h-48 max-w-6xl overflow-hidden">
-          {/* Carousel Container */}
-          <Slider {...settings}>
-            {jobPosts.map((job) => (
-              <div
-                key={job.id}
-                className="p-4 bg-white mt-4 shadow-[0_0_10px_rgba(77,47,121,0.5)] text-[rgb(77,47,121)] rounded-lg focus:outline-none cursor-pointer"
-                onClick={() => handleJobClick(job)}
-              >
-                <h3 className="text-xl font-semibold">{job.title}</h3>
-                <p className="text-[rgb(154,91,248)]">{job.company}</p>
-                <p className="text-[rgb(154,91,248)]">{job.location}</p>
-                <p className="text-[rgb(154,91,248)] font-bold">{job.salary}</p>
-              </div>
-            ))}
-          </Slider>
+          {/* Conditional rendering based on the presence of jobs */}
+          {isEmpty ? (
+            <div className="text-center text-lg font-semibold mt-4">
+              No jobs available
+            </div>
+          ) : (
+            <Slider {...settings}>
+              {jobs.map((job) => (
+                <div
+                  key={job.id}
+                  className="p-4 w-[10px] bg-white mt-4 shadow-[0_0_10px_rgba(77,47,121,0.5)] text-[rgb(77,47,121)] rounded-lg focus:outline-none cursor-pointer"
+                  onClick={() => {
+                    setSelectedJob(job);
+                    setModalIsOpen(true);
+                  }}
+                >
+                  <h3 className="text-xl font-semibold">
+                    {job.attributes.position}
+                  </h3>
+                  <p className="text-[rgb(154,91,248)]">
+                    {job.attributes.company}
+                  </p>
+                  <p className="text-[rgb(154,91,248)]">
+                    {truncateText(job.attributes.job_description, 4)}
+                  </p>
+                  <p className="text-[rgb(154,91,248)] font-bold">
+                    {job.attributes.contact}
+                  </p>
+                </div>
+              ))}
+            </Slider>
+          )}
         </div>
       </div>
 
-      {/* Modal for job details and new job form */}
+      {/* Modal */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Job Details"
+        contentLabel={selectedJob ? "Job Details" : "Add New Job Post"}
         className="modal"
         overlayClassName="overlay"
       >
         {selectedJob ? (
           <div className="p-4">
             <h2 className="text-2xl font-semibold mb-4">Job Details</h2>
-            <p className="text-xl font-bold">{selectedJob.title}</p>
-            <p className="text-lg">{selectedJob.company}</p>
-            <p className="text-lg">{selectedJob.location}</p>
-            <p className="text-lg font-bold">{selectedJob.salary}</p>
-            <div className="flex justify-end mt-4">
+            <p className="text-xl font-bold">
+              Position: {selectedJob.attributes.position}
+            </p>
+            <p className="text-lg font-bold">
+              Company: {selectedJob.attributes.company}
+            </p>
+            <p className="text-lg">
+              Description: {selectedJob.attributes.job_description}
+            </p>
+            <p className="text-lg font-bold">
+              Contact: {selectedJob.attributes.contact}
+            </p>
+            <div className="flex justify-end gap-4 mt-4">
+              <button
+                onClick={() => {
+                  handleDelete(selectedJob.id);
+                  setModalIsOpen(false);
+                }}
+                className="px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              >
+                Delete
+              </button>
               <button
                 onClick={() => setModalIsOpen(false)}
                 className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
