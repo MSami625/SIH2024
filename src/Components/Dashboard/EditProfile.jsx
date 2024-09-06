@@ -1,27 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const Details = () => {
+const EditProfile = ({id}) => {
   const [formData, setFormData] = useState({
-    collegeName: "",
-    batch: "",
+    year: "",
     department: "",
     mobile: "",
-    profile: null,
-    currentLocation: "",
-    currentCompany: "",
-    studentId: "",
+    img_url: null,
+    location: "",
+    current_company: "",
+    student_id: "",
   });
 
-  const [isEditing, setIsEditing] = useState(false); // New state to control edit mode
+  const [isEditing, setIsEditing] = useState(false);
 
   const formFields = [
-    { label: "College Name", name: "collegeName", type: "text" },
-    { label: "Batch", name: "batch", type: "number" },
+    { label: "Year", name: "year", type: "number" },
     { label: "Department", name: "department", type: "text" },
-    { label: "Student ID", name: "studentId", type: "number" },
+    { label: "Student ID", name: "student_id", type: "text" },
     { label: "Mobile", name: "mobile", type: "number" },
-    { label: "Current Location", name: "currentLocation", type: "text" },
-    { label: "Current Company", name: "currentCompany", type: "text" },
+    { label: "Current Location", name: "location", type: "text" },
+    { label: "Current Company", name: "current_company", type: "text" },
   ];
 
   const handleChange = (e) => {
@@ -32,11 +31,54 @@ const Details = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    setIsEditing(false);
+    try {
+      await axios.put(`http://localhost:1337/api/userdata/${id}`, {
+        data: {
+          location: formData.location,
+          mobile: formData.mobile,
+          current_company: formData.current_company,
+        },
+      });
+      console.log("Form Data Updated:", formData);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
   };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:1337/api/userdata/${id}`);
+        const { attributes } = response.data.data;
+        const {
+          year,
+          department,
+          mobile,
+          img_url,
+          location,
+          current_company,
+          student_id
+        } = attributes;
+
+        setFormData({
+          year,
+          department,
+          mobile,
+          img_url,
+          location,
+          current_company,
+          student_id,
+        });
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [id]);
 
   return (
     <div className="p-10 ml-24 min-w-[70vw] flex md:items-center justify-center bg-gray-100">
@@ -45,7 +87,7 @@ const Details = () => {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-4">
             <img
-              src="https://via.placeholder.com/150"
+              src={formData.img_url || "https://via.placeholder.com/150"}
               alt="Profile"
               className="w-16 h-16 rounded-full"
             />
@@ -74,18 +116,15 @@ const Details = () => {
                 <input
                   type={field.type}
                   name={field.name}
-                  value={formData[field.name]}
+                  value={formData[field.name] || ""}
                   onChange={handleChange}
                   disabled={
-                    ["collegeName", "batch", "department"].includes(
+                    ["student_id", "year", "department"].includes(
                       field.name
                     ) || !isEditing
                   }
                   className={`mt-1 block w-full p-2 border rounded-lg focus:outline-none ${
-                    isEditing ||
-                    ["collegeName", "batch", "department"].includes(field.name)
-                      ? "focus:border-blue-600"
-                      : "bg-gray-200 cursor-not-allowed"
+                    isEditing ? "focus:border-blue-600" : "bg-gray-200 cursor-not-allowed"
                   }`}
                   required
                 />
@@ -107,4 +146,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default EditProfile;

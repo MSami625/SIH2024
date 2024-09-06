@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { IoDocumentTextOutline, IoLogOutOutline } from "react-icons/io5";
 import { BiSolidBarChartSquare } from "react-icons/bi";
 import { FaChartLine } from "react-icons/fa6";
 import { BsPlayCircleFill } from "react-icons/bs";
 import DashHome from "../Components/Dashboard/DashHome";
-import Header from "../Components/Dashboard/header";
-import EditProfile from "../Components/Dashboard/editProfile";
-
 import Forums from "../Pages/Forums";
-
-import { signOut } from "firebase/auth";
+import Header from "../Components/Dashboard/header"; // Assuming Header is used somewhere
+import EditProfile from "../Components/Dashboard/EditProfile";
+import { signOut,onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState(null); // State to hold the user data
+  const [activeComponent, setActiveComponent] = useState(<DashHome userData={userData} />); // State for the active content
+  const [id,setId] = useState(0);
 
   const handleLogout = async () => {
     try {
@@ -23,17 +25,47 @@ function Dashboard() {
       navigate("/"); // Navigate to the homepage after logout
     } catch (error) {
       console.error("Logout failed: ", error);
-      // Optionally, show an error message or alert
       alert("Logout failed. Please try again.");
     }
   };
 
+  /// Function to fetch user data using the uid
+  const fetchUserData = async (uid) => {
+    try {
+      const response = await axios.get(`http://localhost:1337/api/userdata?filters[uid][$eq]=${uid}&populate=jobs`);
+      if (response.data && response.data.data.length > 0) {
+        setUserData(response.data.data[0]); // Set the first user data result
+        setId(userData.id)
+      } else {
+        console.log("No user data found");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchUserData(user.uid);  // Fetch user data when the user is authenticated
+      } else {
+        console.log("No authenticated user");
+      }
+    });
+  
+    // Cleanup the listener when the component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []); 
+
+  // Navigation items
   const navItems = [
     {
       id: 0,
       icon: <AiFillHome className="w-5 h-5" />,
       text: "Home",
-      display: <DashHome />,
+      display: <DashHome userData={userData} />, // Pass userData to DashHome
     },
     {
       id: 1,
@@ -45,7 +77,7 @@ function Dashboard() {
       id: 2,
       icon: <BiSolidBarChartSquare className="w-5 h-5" />,
       text: "Profile",
-      display: <EditProfile />,
+      display: <EditProfile id={id}/>,
     },
     {
       id: 3,
@@ -66,8 +98,8 @@ function Dashboard() {
 
   return (
     <>
-      <Header />
-      <div className="w-screen   pl-8 pr-8 pt-4 flex  items-start">
+      <Header userData={userData}/>
+      <div className="w-screen h-screen pl-8 pr-8 pt-4 flex  items-start">
         {/* Navbar */}
         <div
           onMouseEnter={() => setIsHovered(true)}
