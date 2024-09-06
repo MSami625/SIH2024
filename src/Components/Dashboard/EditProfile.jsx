@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const EditProfile = ({id}) => {
+const EditProfile = ({ id }) => {
   const [formData, setFormData] = useState({
     year: "",
     department: "",
@@ -34,7 +34,7 @@ const EditProfile = ({id}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:1337/api/userdata/${id}`, {
+      await axios.put(`http://192.168.137.201:1337/api/userdata/${id}`, {
         data: {
           location: formData.location,
           mobile: formData.mobile,
@@ -51,7 +51,9 @@ const EditProfile = ({id}) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:1337/api/userdata/${id}`);
+        const response = await axios.get(
+          `http://192.168.137.201:1337/api/userdata/${id}`
+        );
         const { attributes } = response.data.data;
         const {
           year,
@@ -60,7 +62,7 @@ const EditProfile = ({id}) => {
           img_url,
           location,
           current_company,
-          student_id
+          student_id,
         } = attributes;
 
         setFormData({
@@ -119,12 +121,13 @@ const EditProfile = ({id}) => {
                   value={formData[field.name] || ""}
                   onChange={handleChange}
                   disabled={
-                    ["student_id", "year", "department"].includes(
-                      field.name
-                    ) || !isEditing
+                    ["student_id", "year", "department"].includes(field.name) ||
+                    !isEditing
                   }
                   className={`mt-1 block w-full p-2 border rounded-lg focus:outline-none ${
-                    isEditing ? "focus:border-blue-600" : "bg-gray-200 cursor-not-allowed"
+                    isEditing
+                      ? "focus:border-blue-600"
+                      : "bg-gray-200 cursor-not-allowed"
                   }`}
                   required
                 />

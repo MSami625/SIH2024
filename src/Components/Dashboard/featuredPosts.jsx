@@ -7,37 +7,17 @@ import "slick-carousel/slick/slick-theme.css";
 // Set the app element for accessibility
 Modal.setAppElement("#root");
 
+const truncateText = (text, wordLimit) => {
+  const words = text.split(" ");
+  if (words.length > wordLimit) {
+    return words.slice(0, wordLimit).join(" ") + "...";
+  }
+  return text;
+};
+
 const FeaturedPosts = () => {
-  const settings = {
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: true,
-    fade: false,
-    cssEase: "linear",
-    pauseOnHover: true,
-    pauseOnFocus: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-  };
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted", formData);
-    setModalIsOpen(false);
-  };
+  const [selectedPost, setSelectedPost] = useState(null);
 
   const slides = [
     {
@@ -95,17 +75,34 @@ const FeaturedPosts = () => {
     },
   ];
 
+  const settings = {
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    fade: false,
+    cssEase: "linear",
+    pauseOnHover: true,
+    pauseOnFocus: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+  };
+
+  const handlePostClick = (post) => {
+    setSelectedPost(post);
+    setModalIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+    setSelectedPost(null);
+  };
+
   return (
     <div className="text-center font-bold text-xl">
       <div className="relative flex flex-col items-end p-4">
         <div className="flex items-center w-full justify-between">
           <h1 className="text-3xl text-[rgb(77,47,121)]">Featured Posts</h1>
-          <button
-            onClick={() => setModalIsOpen(true)}
-            className="top-4 right-4 px-4 py-2 bg-[rgb(77,47,121)] text-white rounded-lg duration-300 hover:border-[rgb(77,47,121)] border-2 hover:bg-white hover:text-[rgb(77,47,121)] focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            New Post
-          </button>
         </div>
 
         <div className="w-full max-w-6xl overflow-hidden">
@@ -114,66 +111,43 @@ const FeaturedPosts = () => {
             {slides.map((slide) => (
               <div
                 key={slide.id}
-                className="p-4 bg-white mt-4 shadow-[0_0_10px_rgba(77,47,121,0.5)] text-[rgb(77,47,121)] rounded-lg focus:outline-none mx-2"
+                className="p-4 bg-white mt-4 shadow-[0_0_10px_rgba(77,47,121,0.5)] text-[rgb(77,47,121)] rounded-lg cursor-pointer mx-2"
+                onClick={() => handlePostClick(slide)}
               >
                 <h3 className="text-lg font-semibold">{slide.headline}</h3>
-                <p className="text-gray-600 text-sm">{slide.description}</p>
+                <p className="text-gray-600 text-sm">
+                  {truncateText(slide.description, 20)}
+                </p>
               </div>
             ))}
           </Slider>
         </div>
       </div>
 
-      {/* Modal for Adding New Post */}
+      {/* Modal for Post Details */}
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Add New Post"
+        onRequestClose={handleCloseModal}
+        contentLabel="Post Details"
         className="modal"
         overlayClassName="overlay"
       >
-        <h2 className="text-2xl font-semibold mb-4">Add New Post</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Post Title</label>
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              required
-            />
+        {selectedPost && (
+          <div className="p-4">
+            <h2 className="text-2xl font-semibold mb-4">
+              {selectedPost.headline}
+            </h2>
+            <p className="text-lg">{selectedPost.description}</p>
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={handleCloseModal}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              >
+                Close
+              </button>
+            </div>
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">
-              Description
-            </label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              rows="4"
-              required
-            />
-          </div>
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={() => setModalIsOpen(false)}
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg mr-2 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+        )}
       </Modal>
 
       {/* Styles for the modal */}
@@ -184,7 +158,7 @@ const FeaturedPosts = () => {
           left: 50%;
           transform: translate(-50%, -50%);
           width: 100%;
-          max-width: 500px;
+          max-width: 600px;
           padding: 20px;
           background: white;
           border-radius: 8px;
