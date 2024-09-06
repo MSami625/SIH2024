@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { auth } from "../Firebase";
 
-const Nav = ({ navbarData }) => {
+const Nav = ({ navbarData, active }) => {
   const { logoText, navItems } = navbarData;
   const [openNav, setOpenNav] = React.useState(false);
   const [user, setUser] = useState(null);
@@ -56,12 +56,21 @@ const Nav = ({ navbarData }) => {
           as="li"
           variant="small"
           color="blue-gray"
-          className={`p-1 font-normal relative before:absolute before:bg-black before:bottom-0 before:left-0 before:w-full before:h-[1.5px] lg:before:hover:scale-x-100 before:origin-left before:duration-500
-        ${navbarData.active ? "before:scale-x-100" : "before:scale-x-0"}
-          `}
+          className={`flex gap-8 p-1 font-normal`}
         >
-          <Link to="/Profile" className="flex items-center text-[16px]">
-            Profile
+          <Link
+            to="/Dashboard"
+            className={`flex items-center text-[16px] relative before:absolute before:bg-black before:bottom-0 before:left-0 before:w-full before:h-[1.5px] before:scale-x-0 before:hover:scale-x-100 before:origin-left before:duration-500
+         `}
+          >
+            Dashboard
+          </Link>
+          <Link
+            to="/Jobs"
+            className={`flex items-center text-[16px] relative before:absolute before:bg-black before:bottom-0 before:left-0 before:w-full before:h-[1.5px] lg:before:hover:scale-x-100 before:origin-left before:duration-500
+        ${active ? "before:scale-x-100" : "before:scale-x-0"} `}
+          >
+            Jobs
           </Link>
         </Typography>
       ) : (
@@ -79,14 +88,21 @@ const Nav = ({ navbarData }) => {
             href=""
             className="cursor-pointer flex items-center lg:text-2xl font-['poppins']"
           >
-            {/* <img
-            className="w-12"
-            src={logo_img}
-            alt="logo-image"
-          /> */}
             {logoText}
           </Typography>
-          <div className="mr-4 hidden lg:block">{navList}</div>
+          <div className="mr-4 hidden lg:flex items-center">
+            {navList}
+            {isLoggedIn() ? ( // Show Log Out button if user is logged in
+              <button
+                className="bg-[#9a5bf8] text-white hover:bg-white hover:text-black shadow-lg focus:scale-90 duration-300 py-2 px-4 rounded-lg"
+                onClick={() => auth.signOut()}
+              >
+                Log Out
+              </button>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <IconButton

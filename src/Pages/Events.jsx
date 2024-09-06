@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ParallaxBanner, ParallaxBannerLayer } from "react-scroll-parallax";
 import { HiOutlineArrowTopRightOnSquare } from "react-icons/hi2";
 import { IoIosArrowRoundDown } from "react-icons/io";
+import UpcomingEvents from "../Components/upcomingEvents";
 
 function Events() {
   const settings = {
@@ -44,14 +45,33 @@ function Events() {
       },
       // Add more slides as needed
     ],
-    event: [
+    upcomingEvents: [
       {
-        image: "image1",
-        name: "Dexterix 4.0",
+        id: 1,
+        title: "Indonesia - Korea Conference",
+        date: "Sep 18, 2019",
+        location: "Yogyakarta, Indonesia",
+        price: "Rs. 900 /-",
+        image: "https://via.placeholder.com/300x200",
+        free: false,
       },
       {
-        image: "image2",
-        name: "Tech Summit",
+        id: 2,
+        title: "Dream World in Jakarta",
+        date: "Sep 17, 2019",
+        location: "Jakarta, Indonesia",
+        price: "Free",
+        image: "https://via.placeholder.com/300x200",
+        free: true,
+      },
+      {
+        id: 3,
+        title: "Pesta Kembang Api Terbesar",
+        date: "Sep 16, 2019",
+        location: "Jakarta, Indonesia",
+        price: "Rs. 1500 /-",
+        image: "https://via.placeholder.com/300x200",
+        free: false,
       },
     ],
     timeline: [
@@ -146,24 +166,7 @@ function Events() {
 
           <div className="w-full min-h-screen flex flex-col justify-center gap-8 md:gap-0 text-white bg-white z-1 relative px-12 shadow-[0_0_10px_rgba(0,0,0,0.4)]">
             {/* Upcoming Events*/}
-            <p className="text-2xl font-bold text-[#9a5bf8]">Upcoming Events</p>
-            <div className="flex flex-col md:flex-row items-center gap-12 w-full h-1/3">
-              {siteData.event.map((items, index) => (
-                <div
-                  key={index}
-                  className="bg-white shadow-[0_0_10px_rgba(154,91,248,0.4)] h-2/3 rounded-lg relative overflow-hidden"
-                >
-                  <img
-                    src="https://wuelev8-user-bucket-prod.s3-ap-south-1.amazonaws.com/SIH_logo_2024_horizontal1724405745636.png"
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                  <p className="absolute bottom-0 left-0 w-full backdrop-blur bg-[rgba(0,0,0,0.4)] px-4 py-1">
-                    {items.name}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <UpcomingEvents events={siteData.upcomingEvents} eventPage={true} />
 
             {/* timeline */}
             <div className="hidden md:flex flex-col gap-4 mt-16 z-10">

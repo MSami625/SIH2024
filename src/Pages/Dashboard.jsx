@@ -180,7 +180,7 @@ function Dashboard() {
         </div>
 
         {/* Main Content */}
-        <div className="flex pl-16  rounded-lg max-h-[80vh] ml-6 overflow-hidden  flex-col gap-10 items-center flex-wrap justify-start ">
+        <div className="flex flex-col w-full max-h-[80vh]">
           {navItems[activeItem].display}
         </div>
       </div>

@@ -18,64 +18,57 @@ function Directory() {
       ],
     },
     filters: {
-      Batch: Array.from({ length: 2024 - 2000 + 1 }, (_, i) => 2000 + i),
-      Institute: [
-        "Galgotias University",
-        "Galgotias College",
-        "Amitty University",
-        "GL Bajaj University",
-        "Sharda University",
-        "Benett University",
-      ],
+      Batch: Array.from({ length: 2024 - 2000 + 1 }, (_, i) => 2024 - i),
+      Department: ["BTech CSE", "BSc. CS", "BDS", "BTech CSE", "MTech CSE"],
     },
     alumniData: [
       {
         name: "Shrishti Patel",
         image: "demo image",
-        batch: "BTech CSE (2024)",
-        institute: "Galgotias University",
+        batch: "2024",
+        department: "BTech CSE",
       },
       {
         name: "Sid Malhotra",
         image: "demo image",
-        batch: "BSc. CS (2023)",
-        institute: "GL Bajaj University",
+        batch: "2023",
+        department: "BSc. CS",
       },
       {
         name: "Kanishka Agarwal",
         image: "demo image",
-        batch: "BDS (2021)",
-        institute: "Sharda University",
+        batch: "2021",
+        department: "BDS",
       },
       {
         name: "Niharika Arora",
         image: "demo image",
-        batch: "BTech CSE (2024)",
-        institute: "Galgotias University",
+        batch: "2024",
+        department: "BTech CSE",
       },
       {
         name: "Neha Jain",
         image: "demo image",
-        batch: "MTech CSE (2019)",
-        institute: "Amity University",
+        batch: "2019",
+        department: "MTech CSE",
       },
       {
         name: "Neha Jain",
         image: "demo image",
-        batch: "MTech CSE (2019)",
-        institute: "Amity University",
+        batch: "2019",
+        department: "MTech CSE",
       },
       {
         name: "Neha Jain",
         image: "demo image",
-        batch: "MTech CSE (2019)",
-        institute: "Amity University",
+        batch: "2019",
+        department: "MTech CSE",
       },
       {
         name: "Neha Jain",
         image: "demo image",
-        batch: "MTech CSE (2019)",
-        institute: "Amity University",
+        batch: "2019",
+        department: "MTech CSE",
       },
     ],
     footerData: {
@@ -177,7 +170,7 @@ function Directory() {
                 </h1>
                 <input
                   type="text"
-                  placeholder={`Search ${filter}`}
+                  placeholder={`Search`}
                   className="focus:outline-none focus:border-black border-b-2 p-2 w-full"
                   onChange={(e) => handleSearch(e.target.value, filter)}
                 />
@@ -228,7 +221,7 @@ function Directory() {
                       {items.name}
                     </p>
                     <p className="text-md">{items.batch}</p>
-                    <p className="text-md">{items.institute}</p>
+                    <p className="text-md">{items.department}</p>
                   </div>
                 </div>
               ))}

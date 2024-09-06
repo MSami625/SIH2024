@@ -1,4 +1,3 @@
-import React from "react";
 import Nav from "../Components/navbar";
 import Slider from "react-slick";
 import Footer from "../Components/footer";
@@ -24,7 +23,7 @@ function Engage() {
       navItems: [
         { text: "Home", link: "/" },
         { text: "Engage", link: "/Engage", active: true },
-        { text: "Network", link: "/" },
+        { text: "Network", link: "/Network" },
         { text: "Events", link: "/Events" },
         { text: "Directory", link: "/Directory" },
         { text: "Forum", link: "/Forum" },
@@ -110,35 +109,35 @@ function Engage() {
         <div className="hidden w-1/2 relative md:grid grid-cols-3 grid-rows-3 max-h-[75vh] gap-y-4">
           <div className="row-start-1 col-start-1 border-2 border-black mr-4">
             <img
-              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              src="https://img.freepik.com/free-vector/flat-business-deal-concept_23-2148122564.jpg?t=st=1725599753~exp=1725603353~hmac=6a7b78ed0cfdf6b02f36f7a890dc856b6e1e6c9ac65ff130a0a9acf1d52daf99&w=740"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
           <div className="row-start-1 col-span-3 border-2 border-black">
             <img
-              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              src="https://img.freepik.com/free-vector/flat-business-deal-concept_23-2148124938.jpg?t=st=1725600132~exp=1725603732~hmac=f11d5ca271fee8e9b2d975e00617cdcce769c62ba888bf1ad9ffcd5d739d0eea&w=740"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
           <div className="row-start-2 col-span-2 border-2 border-black mr-4">
             <img
-              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              src="https://img.freepik.com/free-vector/business-deal-concept-illustration_114360-1535.jpg?t=st=1725600278~exp=1725603878~hmac=07a9556f4929dfd1d1a01c8cbe3c4785d4d51e76e75b67591188c54051975739&w=740"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
           <div className="row-start-2 col-start-3 border-2 border-black">
             <img
-              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              src="https://img.freepik.com/free-photo/volunteer-giving-box-with-donations-another-volunteer_23-2149230558.jpg?t=st=1725600555~exp=1725604155~hmac=edf762b1da0465e67530c39b8c070e12b9afa084f15b4e0836957c2c7e150b04&w=996"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
           <div className="row-start-3 col-span-3 border-2 border-black">
             <img
-              src="https://img.freepik.com/premium-vector/word-cloud-background-concept-donation-charity-support-finance-contribution-help-community-fundraising-vector-illustration_616200-3945.jpg"
+              src="https://hordfoundation.org/wp-content/uploads/2019/10/66830401_m.jpg"
               alt=""
               className="w-full h-full object-cover"
             />

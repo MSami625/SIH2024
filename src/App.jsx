@@ -11,10 +11,9 @@ import Dashboard from "./Pages/Dashboard";
 import Forums from "./Pages/Forums";
 import Network from "./Pages/Network";
 import Details from "./Pages/Details";
+import JobPortal from "./Pages/JobPortal";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ParallaxProvider } from "react-scroll-parallax";
-
-
 
 const lenis = new Lenis();
 
@@ -37,12 +36,13 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/Directory" element={<Directory />} />
             <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/Events" element={<Events />} />
-            <Route path="/Engage" element={<Engage />} />
-            <Route path="/Forum" element={<Forums />} />
-            <Route path="/Network" element={<Network />} />
-            <Route path="/Login" element={<Login />} />
             <Route path="/Edit_Profile" element={<Details />} />
+            <Route path="/Engage" element={<Engage />} />
+            <Route path="/Events" element={<Events />} />
+            <Route path="/Forum" element={<Forums />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Network" element={<Network />} />
+            <Route path="/Jobs" element={<JobPortal />} />
           </Routes>
         </Router>
       </ParallaxProvider>

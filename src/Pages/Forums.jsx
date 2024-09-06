@@ -179,30 +179,18 @@ function Forums() {
     },
     filterData: {
       filters: {
-        Domain: {
-          title: ["Health", "Education", "R&D", "Collaboration"],
-        },
-        Content: {
-          title: ["Filter1", "Filter2"],
+        Discussion: {
+          title: ["Careers", "Jobs", "Interests", "Events"],
         },
       },
       featured: {
         Content: {
           title: [
-            "Random Content",
-            "Random Content",
-            "Random Content",
-            "Random Content",
-            "Random Content",
-          ],
-        },
-        Company: {
-          title: [
-            "Random Company",
-            "Random Company",
-            "Random Company",
-            "Random Company",
-            "Random Company",
+            "Trending Discussions",
+            "Industry Highlights",
+            "Success Stories",
+            "Career Opportunities",
+            "Upcoming Events",
           ],
         },
       },
@@ -211,7 +199,7 @@ function Forums() {
       rankData: {
         companies: [
           {
-            title: "ABC Corporation",
+            title: "Johnathan Taylor",
             url: "https://www.abccorporation.com",
           },
           {
